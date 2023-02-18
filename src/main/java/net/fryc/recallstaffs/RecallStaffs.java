@@ -39,6 +39,5 @@ public class RecallStaffs implements ModInitializer {
 		}
 
 		CommandRegistrationCallback.EVENT.register(ResetStaffCooldownCommand::register);
-		//todo advancements, testy i 1.19.3
 	}
 }
