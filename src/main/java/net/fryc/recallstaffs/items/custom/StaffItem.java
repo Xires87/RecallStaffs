@@ -104,7 +104,7 @@ public class StaffItem extends Item {
                     player.getItemCooldownManager().set(this, 100);
                     player.setExperienceLevel(changePlayerLevel(this, player.experienceLevel));
 
-                    if(RecallStaffs.config.recallingSummonsLightningBolt) EntityType.LIGHTNING_BOLT.spawn((ServerWorld) world, null, null, null, new BlockPos(d,e,f), SpawnReason.TRIGGERED, true, true);
+                    if(RecallStaffs.config.recallingSummonsLightningBolt) EntityType.LIGHTNING_BOLT.spawn((ServerWorld) world, new BlockPos(d,e,f), SpawnReason.TRIGGERED);
                     ((ServerPlayerGetters) player).setRecallStaffCooldown(setStaffCooldown(this));
 
                     player.setInvulnerable(false);

@@ -2,9 +2,9 @@ package net.fryc.recallstaffs.tags;
 
 import net.fryc.recallstaffs.RecallStaffs;
 import net.minecraft.item.Item;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ModItemTags {
 
@@ -16,6 +16,6 @@ public class ModItemTags {
     }
 
     private static TagKey<Item> register(String id) {
-        return TagKey.of(Registry.ITEM_KEY, new Identifier(RecallStaffs.MOD_ID, id));
+        return TagKey.of(RegistryKeys.ITEM, new Identifier(RecallStaffs.MOD_ID, id));
     }
 }

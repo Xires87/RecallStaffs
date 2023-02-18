@@ -5,13 +5,16 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fryc.craftingmanipulator.conditions.PressedKey;
 import net.fryc.craftingmanipulator.rules.PlayerLevelRBR;
 import net.fryc.craftingmanipulator.rules.oncraft.ExperienceOCR;
+import net.fryc.craftingmanipulator.rules.tooltips.TooltipRules;
 import net.fryc.recallstaffs.command.ResetStaffCooldownCommand;
 import net.fryc.recallstaffs.config.RecallStaffsConfig;
 import net.fryc.recallstaffs.event.CopyRecallStaffCooldown;
 import net.fryc.recallstaffs.items.ModItems;
 import net.fryc.recallstaffs.tags.ModItemTags;
+import net.minecraft.util.Formatting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +35,15 @@ public class RecallStaffs implements ModInitializer {
 		}
 
 		if(config.recallStaffCraftCost > 0){
-			String tooltip = config.recallStaffCraftCost + " level";
-			if(!config.enableCraftingRequirementsTooltipForRecallStaffs) tooltip = "";
-			PlayerLevelRBR RECALL_STAFF_CRAFT_COST = new PlayerLevelRBR(tooltip, ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, config.recallStaffCraftCost);
-			ExperienceOCR REMOVE_LEVEL = new ExperienceOCR("", ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, -config.recallStaffCraftCost, false);
+			if(config.enableCraftingRequirementsTooltipForRecallStaffs){
+				TooltipRules tooltip = new TooltipRules(ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, "Crafting Requirements (SHIFT)", PressedKey.SHIFT, config.recallStaffCraftCost + " level");
+				tooltip.tooltipFormatting = new Formatting[]{Formatting.YELLOW};
+				tooltip.tooltipWhenKeyPressedFormatting = new Formatting[]{Formatting.RED};
+			}
+			PlayerLevelRBR RECALL_STAFF_CRAFT_COST = new PlayerLevelRBR(ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, config.recallStaffCraftCost);
+			ExperienceOCR REMOVE_LEVEL = new ExperienceOCR(ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, -config.recallStaffCraftCost, false);
 		}
 
 		CommandRegistrationCallback.EVENT.register(ResetStaffCooldownCommand::register);
-		//todo advancements, testy i 1.19.3
 	}
 }
