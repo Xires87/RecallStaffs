@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:emerald"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "CXC",
+    "C#C",
+    " # "
+  ],
+  "result": {
+    "item": "recallstaffs:copper_recall_staff"
+  }
+}

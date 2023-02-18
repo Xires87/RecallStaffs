@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "recallstaffs:wooden_recall_staff",
+    "recallstaffs:copper_recall_staff",
+    "recallstaffs:iron_recall_staff",
+    "recallstaffs:golden_recall_staff",
+    "recallstaffs:diamond_recall_staff",
+    "recallstaffs:netherite_recall_staff"
+  ]
+}

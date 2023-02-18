@@ -1,0 +1,41 @@
+{
+  "item.recallstaffs.wooden_recall_staff": "Drewniana Różdżka Powrotu",
+  "item.recallstaffs.copper_recall_staff": "Miedziana Różdżka Powrotu",
+  "item.recallstaffs.iron_recall_staff": "Żelazna Różdżka Powrotu",
+  "item.recallstaffs.golden_recall_staff": "Złota Różdżka Powrotu",
+  "item.recallstaffs.diamond_recall_staff": "Diamentowa Różdżka Powrotu",
+  "item.recallstaffs.netherite_recall_staff": "Netherytowa Różdżka Powrotu",
+
+  "text.autoconfig.recallstaffs.title": "Konfiguracja Recall Staffs",
+  "text.autoconfig.recallstaffs.category.other": "Inne",
+  "text.autoconfig.recallstaffs.category.cooldown": "Czas odnowienia",
+  "text.autoconfig.recallstaffs.category.recallcost": "Koszt powrotu",
+
+  "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia różdżki powrotu [Wymagany Restart]",
+  "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe różdżki nie wymagają poziomu gracza aby je wytworzyć)",
+
+  "text.autoconfig.recallstaffs.option.resetStaffCooldownAfterDeath": "Zresetuj czas odnowienia różdżek powrotu po śmierci [Wymagany Restart]",
+
+  "text.autoconfig.recallstaffs.option.recallingSummonsLightningBolt": "Użycie różdżki powrotu przywołuje piorun",
+
+  "text.autoconfig.recallstaffs.option.enableTooltipsForRecallStaffs": "Włącz podpisy dla różdżek powrotu (koszt użycia i czas odnowienia)",
+  "text.autoconfig.recallstaffs.option.enableCraftingRequirementsTooltipForRecallStaffs": "Włącz podpisy dla różdżek powrotu (crafting requirements) [Wymagany Restart]",
+
+  "text.autoconfig.recallstaffs.option.woodenRecallStaffCooldown": "Czas odnowienia drewnianej różdżki powrotu (sekundy)",
+  "text.autoconfig.recallstaffs.option.copperRecallStaffCooldown": "Czas odnowienia miedzianej różdżki powrotu (sekundy)",
+  "text.autoconfig.recallstaffs.option.ironRecallStaffCooldown": "Czas odnowienia żelaznej różdżki powrotu (sekundy)",
+  "text.autoconfig.recallstaffs.option.goldenRecallStaffCooldown": "Czas odnowienia złotej różdżki powrotu (sekundy)",
+  "text.autoconfig.recallstaffs.option.diamondRecallStaffCooldown": "Czas odnowienia diamentowej różdżki powrotu (sekundy)",
+  "text.autoconfig.recallstaffs.option.netheriteRecallStaffCooldown": "Czas odnowienia netherytowej różdżki powrotu (sekundy)",
+
+
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeRecall": "Sprawdź poziom gracza przed powrotem",
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeRecall.@Tooltip": "Kiedy włączone, gracze nie będą mogli użyć różdżki powrotu mając poziom niższy niż koszt użycia różdżki",
+
+  "text.autoconfig.recallstaffs.option.woodenRecallCost": "Koszt użycia drewnianej różdżki (poziom gracza)",
+  "text.autoconfig.recallstaffs.option.copperRecallCost": "Koszt użycia miedzianej różdżki (poziom gracza)",
+  "text.autoconfig.recallstaffs.option.ironRecallCost": "Koszt użycia żelaznej różdżki (poziom gracza)",
+  "text.autoconfig.recallstaffs.option.goldenRecallCost": "Koszt użycia złotej różdżki (poziom gracza)",
+  "text.autoconfig.recallstaffs.option.diamondRecallCost": "Koszt użycia diamentowej różdżki (poziom gracza)",
+  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Koszt użycia netherytowej różdżki (poziom gracza)"
+}

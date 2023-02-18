@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "recallstaffs",
+  "version": "${version}",
+
+  "name": "Recall Staffs",
+  "description": "Adds recall staffs that let you teleport to your spawn location",
+  "authors": [
+    "Wookash Fryc"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/recall-staffs",
+    "sources": "https://github.com/Xires87/RecallStaffs",
+    "issues": "https://github.com/Xires87/RecallStaffs/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/recallstaffs/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fryc.recallstaffs.RecallStaffs"
+    ],
+    "client": [
+      "net.fryc.recallstaffs.RecallStaffsClient"
+    ],
+    "modmenu": [
+      "net.fryc.recallstaffs.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "recallstaffs.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric-api": "*",
+    "minecraft": "~1.19",
+    "java": ">=17",
+    "craftingmanipulator": ">=1.0.2",
+    "cloth-config": ">=8.2.88"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

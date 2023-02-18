@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "recallstaffs:copper_recall_staff",
+    "recallstaffs:iron_recall_staff",
+    "recallstaffs:golden_recall_staff",
+    "recallstaffs:diamond_recall_staff"
+  ]
+}
