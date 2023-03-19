@@ -80,9 +80,9 @@ public class StaffItem extends Item {
         ItemStack itemStack = super.finishUsing(stack, world, user);
         if (!world.isClient) {
 
-            double d = user.getX();
-            double e = user.getY();
-            double f = user.getZ();
+            int d = (int) user.getX();
+            int e = (int) user.getY();
+            int f = (int) user.getZ();
 
             if (user.hasVehicle()) {
                 user.stopRiding();

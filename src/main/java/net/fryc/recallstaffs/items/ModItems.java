@@ -43,7 +43,7 @@ public class ModItems {
         ItemGroup RECALLSTAFFS = FabricItemGroup.builder(new Identifier(RecallStaffs.MOD_ID, "recallstaffs_item_group"))
                 .displayName(Text.literal("Recall Staffs"))
                 .icon(() -> new ItemStack(ModItems.NETHERITE_RECALL_STAFF))
-                .entries((enabledFeatures, entries, operatorEnabled) -> {
+                .entries((enabledFeatures, entries) -> {
 
                     entries.add(ModItems.WOODEN_RECALL_STAFF);
                     entries.add(ModItems.COPPER_RECALL_STAFF);
