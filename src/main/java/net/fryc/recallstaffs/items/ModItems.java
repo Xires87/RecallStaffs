@@ -9,10 +9,15 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
+
+    public static final RegistryKey<ItemGroup> RECALLSTAFFS = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(RecallStaffs.MOD_ID, "recallstaffs_item_group"));
+
 
     public static final Item WOODEN_RECALL_STAFF = registerItem("wooden_recall_staff" ,
             new StaffItem(new FabricItemSettings().maxCount(1)));
@@ -40,19 +45,19 @@ public class ModItems {
     }
     public static void registerModItems(){
         //creative
-        ItemGroup RECALLSTAFFS = FabricItemGroup.builder(new Identifier(RecallStaffs.MOD_ID, "recallstaffs_item_group"))
-                .displayName(Text.literal("Recall Staffs"))
+        Registry.register(Registries.ITEM_GROUP, RECALLSTAFFS, FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ModItems.NETHERITE_RECALL_STAFF))
+                .displayName(Text.literal("Recall Staffs"))
                 .entries((enabledFeatures, entries) -> {
-
                     entries.add(ModItems.WOODEN_RECALL_STAFF);
                     entries.add(ModItems.COPPER_RECALL_STAFF);
                     entries.add(ModItems.IRON_RECALL_STAFF);
                     entries.add(ModItems.GOLDEN_RECALL_STAFF);
                     entries.add(ModItems.DIAMOND_RECALL_STAFF);
                     entries.add(ModItems.NETHERITE_RECALL_STAFF);
-
                 })
-                .build();
+                .build());
+
+
     }
 }

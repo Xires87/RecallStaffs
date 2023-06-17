@@ -38,7 +38,9 @@ public class ResetStaffCooldownCommand {
         }
 
 
-        source.sendFeedback(Text.literal("Recall staff cooldown has been set to 0"), true);
+        source.sendFeedback(() -> {
+            return Text.literal("Recall staff cooldown has been set to 0");
+        }, true);
 
         return targets.size();
     }
