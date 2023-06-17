@@ -95,11 +95,16 @@ public class StaffItem extends Item {
                     Vec3d vec3d = user.getPos();
                     BlockPos spawnPos = ((ServerPlayerGetters) player).getServerPlayerSpawnPosition();
                     if(spawnPos == null) spawnPos = player.getWorld().getSpawnPos();
+                    /*
                     if(!player.getWorld().getDimension().bedWorks() && player.getSpawnPointDimension() == World.OVERWORLD){
                         player.moveToWorld(((ServerWorld) world).getServer().getWorld(World.OVERWORLD));
                     }
-                    player.teleport(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-                    world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
+
+                     */
+                    if(player.getServer() != null){
+                        player.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), player.getYaw(), player.getPitch());
+                        world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
+                    }
 
                     player.getItemCooldownManager().set(this, 100);
                     player.setExperienceLevel(changePlayerLevel(this, player.experienceLevel));
