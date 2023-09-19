@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,6 +24,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     private BlockPos spawnPointPosition;
 
     private int recallStaffCooldown = 0;
+    private @Nullable GlobalPos positionBeforeUsingRecoveryAltar; // todo trzeba zapisac pozycje do nbt zeby abusowac nie mozna bylo
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
         super(world, pos, yaw, gameProfile, publicKey);
@@ -67,5 +69,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
     @Override
     public void setRecallStaffCooldown(int cooldown) {
         recallStaffCooldown = cooldown;
+    }
+
+    @Override
+    public @Nullable GlobalPos getPositionBeforeUsingRecoveryAltar() {
+        return positionBeforeUsingRecoveryAltar;
+    }
+
+    @Override
+    public void setPositionBeforeUsingRecoveryAltar(@Nullable GlobalPos pos) {
+        positionBeforeUsingRecoveryAltar = pos;
     }
 }

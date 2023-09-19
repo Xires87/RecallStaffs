@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "recovery_charges=0,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_0"
+    },
+    "recovery_charges=0,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_0"
+    },
+    "recovery_charges=1,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_1"
+    },
+    "recovery_charges=1,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_1"
+    },
+    "recovery_charges=2,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_2"
+    },
+    "recovery_charges=2,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_2"
+    },
+    "recovery_charges=3,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_3"
+    },
+    "recovery_charges=3,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_3"
+    },
+    "recovery_charges=4,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_4"
+    },
+    "recovery_charges=4,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_4"
+    },
+    "recovery_charges=5,recovery_ready=false": {
+      "model": "recallstaffs:block/recovery_altar_5"
+    },
+    "recovery_charges=5,recovery_ready=true": {
+      "model": "recallstaffs:block/recovery_altar_6"
+    }
+  }
+}
