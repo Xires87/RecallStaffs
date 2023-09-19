@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:bedrock"
+    },
+    "C": {
+      "item": "minecraft:recovery_compass"
+    },
+    "A": {
+      "item": "minecraft:experience_bottle"
+    },
+    "B": {
+      "item": "minecraft:echo_shard"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "#C#",
+    "###"
+  ],
+  "result": {
+    "item": "recallstaffs:recovery_altar"
+  }
+}
