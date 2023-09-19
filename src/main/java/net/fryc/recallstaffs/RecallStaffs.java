@@ -9,8 +9,10 @@ import net.fryc.craftingmanipulator.conditions.PressedKey;
 import net.fryc.craftingmanipulator.rules.oncraft.ExperienceOCR;
 import net.fryc.craftingmanipulator.rules.recipeblocking.PlayerLevelRBR;
 import net.fryc.craftingmanipulator.rules.tooltips.TooltipRules;
+import net.fryc.recallstaffs.blocks.ModBlocks;
 import net.fryc.recallstaffs.command.ResetStaffCooldownCommand;
 import net.fryc.recallstaffs.config.RecallStaffsConfig;
+import net.fryc.recallstaffs.effects.ModEffects;
 import net.fryc.recallstaffs.event.CopyRecallStaffCooldown;
 import net.fryc.recallstaffs.items.ModItems;
 import net.fryc.recallstaffs.tags.ModItemTags;
@@ -30,6 +32,8 @@ public class RecallStaffs implements ModInitializer {
 		config = AutoConfig.getConfigHolder(RecallStaffsConfig.class).getConfig();
 
 		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
+		ModEffects.registerEffects(); // todo lang, testy, tekstury, recipe, config(zeby ustawic na ile tepa recovery altar) i chyba cos jeszcze tylko nie pamietam co...
 		if(!config.resetStaffCooldownAfterDeath){
 			ServerPlayerEvents.COPY_FROM.register(new CopyRecallStaffCooldown());
 		}
