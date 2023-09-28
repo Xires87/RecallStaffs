@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
@@ -18,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity implements ServerPlayerGetters {
 
-    @Shadow
-    @Nullable
-    private BlockPos spawnPointPosition;
+    @Shadow @Nullable private BlockPos spawnPointPosition;
+
+    @Shadow private RegistryKey<World> spawnPointDimension;
 
     private int recallStaffCooldown = 0;
-    private @Nullable GlobalPos positionBeforeUsingRecoveryAltar; // todo trzeba zapisac pozycje do nbt zeby abusowac nie mozna bylo
+    private @Nullable GlobalPos positionBeforeUsingRecoveryAltar;
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -37,6 +38,13 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
             NbtCompound nbtCompound = nbt.getCompound("RecallStaffCooldown");
             recallStaffCooldown = nbtCompound.getInt("RScooldown");
         }
+
+        // saving dimension to nbt was problematic, so I made players teleport to their spawn point if they leave game after using recovery altar
+        if(nbt.contains("PositionBeforeUsingRecoveryAltar")){
+            BlockPos spawnPos = this.spawnPointPosition;
+            if(spawnPos == null) spawnPos = ((ServerPlayerEntity)(Object)this).getWorld().getSpawnPos();
+            positionBeforeUsingRecoveryAltar = GlobalPos.create(this.spawnPointDimension, spawnPos);
+        }
     }
 
     //writing recallStaffCooldown to Nbt
@@ -46,6 +54,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Se
             NbtCompound nbtCompound = new NbtCompound();
             nbtCompound.putInt("RScooldown", recallStaffCooldown);
             nbt.put("RecallStaffCooldown", nbtCompound);
+        }
+        if(positionBeforeUsingRecoveryAltar != null){
+            NbtCompound nbtCompound = new NbtCompound();
+            nbt.put("PositionBeforeUsingRecoveryAltar", nbtCompound);
         }
     }
 

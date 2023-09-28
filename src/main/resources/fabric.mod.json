@@ -16,7 +16,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/recallstaffs/icon.png",
+  "icon": "assets/recallstaffs/textures/item/netherite_recall_staff.png",
 
   "environment": "*",
   "entrypoints": {
