@@ -1,7 +1,7 @@
 package net.fryc.recallstaffs;
 
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -28,12 +28,12 @@ public class RecallStaffs implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(RecallStaffsConfig.class, GsonConfigSerializer::new);
+		AutoConfig.register(RecallStaffsConfig.class, JanksonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(RecallStaffsConfig.class).getConfig();
 
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModEffects.registerEffects(); // todo lang, testy, tekstury, recipe, config(zeby ustawic na ile tepa recovery altar) i chyba cos jeszcze tylko nie pamietam co...
+		ModEffects.registerEffects(); // todo test configu (<40) ,
 		if(!config.resetStaffCooldownAfterDeath){
 			ServerPlayerEvents.COPY_FROM.register(new CopyRecallStaffCooldown());
 		}

@@ -24,6 +24,8 @@ abstract class ClientPlayerInteractionManagerMixin {
     @Shadow
     private @Final MinecraftClient client;
 
+    // disables all interactions when player has Call of Being (INVULNERABILITY_EFFECT)
+
     @Inject(method = "interactItem(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;", at = @At("HEAD"), cancellable = true)
     private void preventUsingItemsWhenInvulnerable(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> ret) {
         if(player.hasStatusEffect(ModEffects.INVULNERABILITY_EFFECT)){

@@ -3,6 +3,7 @@ package net.fryc.recallstaffs.config;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = "recallstaffs")
 public class RecallStaffsConfig implements ConfigData {
@@ -10,6 +11,7 @@ public class RecallStaffsConfig implements ConfigData {
     @ConfigEntry.Category("other")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.RequiresRestart
+    @Comment("Players level required to craft recall staffs (wooden and netherite staffs doesn't require level to craft)")
     public int recallStaffCraftCost = 10;
     @ConfigEntry.Category("other")
     @ConfigEntry.Gui.RequiresRestart
@@ -48,6 +50,7 @@ public class RecallStaffsConfig implements ConfigData {
 
     @ConfigEntry.Category("recallcost")
     @ConfigEntry.Gui.Tooltip
+    @Comment("When true, players won't be able to recall with level lower than staff's usage cost")
     public boolean checkPlayersLevelBeforeRecall = false;
     @ConfigEntry.Category("recallcost")
     public int woodenRecallCost = 10;
@@ -67,5 +70,18 @@ public class RecallStaffsConfig implements ConfigData {
     @ConfigEntry.Category("recallcost")
     public int netheriteRecallCost = 0;
 
+    @ConfigEntry.Category("recoveryaltar")
+    @ConfigEntry.Gui.Tooltip
+    @Comment("20 = 1s. If this value is lower than 40, player won't get Call of Being and won't teleport back to recovery altar")
+    public int invulnerabilityTimeAfterUsingRecoveryAltar = 600;
+
+    @ConfigEntry.Category("recoveryaltar")
+    @Comment("Number of levels required for first charges (without using Echo Shards)")
+    public int recoveryAltarChargingLevelCost = 10;
+
+    @ConfigEntry.Category("recoveryaltar")
+    @ConfigEntry.Gui.Tooltip
+    @Comment("When set to 0, recovery altar will be charged only with echo shards; when set to 6 - only with player levels")
+    public int recoveryAltarLevelChargesCount = 2;
 
 }

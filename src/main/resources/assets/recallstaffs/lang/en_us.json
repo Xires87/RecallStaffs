@@ -6,10 +6,15 @@
   "item.recallstaffs.diamond_recall_staff": "Diamond Recall Staff",
   "item.recallstaffs.netherite_recall_staff": "Netherite Recall Staff",
 
+  "block.recallstaffs.recovery_altar": "Recovery Altar",
+
+  "effect.recallstaffs.invulnerability": "Call of Being",
+
   "text.autoconfig.recallstaffs.title": "Recall Staffs Config",
   "text.autoconfig.recallstaffs.category.other": "Other",
   "text.autoconfig.recallstaffs.category.cooldown": "Cooldown",
   "text.autoconfig.recallstaffs.category.recallcost": "Recall Cost",
+  "text.autoconfig.recallstaffs.category.recoveryaltar": "Recovery Altar",
 
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Players level required to craft recall staffs [Restart Required]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Wooden and netherite staffs doesn't require level to craft)",
@@ -37,6 +42,11 @@
   "text.autoconfig.recallstaffs.option.ironRecallCost": "Iron recall staff's recall cost (levels)",
   "text.autoconfig.recallstaffs.option.goldenRecallCost": "Golden recall staff's recall cost (levels)",
   "text.autoconfig.recallstaffs.option.diamondRecallCost": "Diamond recall staff's recall cost (levels)",
-  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Netherite recall staff's recall cost (levels)"
+  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Netherite recall staff's recall cost (levels)",
 
+  "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar": "Call of Being duration after using recovery altar",
+  "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. If this value is lower than 40, player won't get Call of Being and won't teleport back to recovery altar",
+  "text.autoconfig.recallstaffs.option.recoveryAltarChargingLevelCost": "Number of levels required for first charges (without using Echo Shards)",
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount": "Level charges count",
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "When set to 0, recovery altar will be charged only with echo shards; when set to 6 - only with player levels"
 }
