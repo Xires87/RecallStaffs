@@ -6,10 +6,15 @@
   "item.recallstaffs.diamond_recall_staff": "Diamentowa Różdżka Powrotu",
   "item.recallstaffs.netherite_recall_staff": "Netherytowa Różdżka Powrotu",
 
+  "block.recallstaffs.recovery_altar": "Ołtarz Powrotny",
+
+  "effect.recallstaffs.invulnerability": "Nietykalność",
+
   "text.autoconfig.recallstaffs.title": "Konfiguracja Recall Staffs",
   "text.autoconfig.recallstaffs.category.other": "Inne",
   "text.autoconfig.recallstaffs.category.cooldown": "Czas odnowienia",
   "text.autoconfig.recallstaffs.category.recallcost": "Koszt powrotu",
+  "text.autoconfig.recallstaffs.category.recoveryaltar": "Ołtarz powrotny",
 
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia różdżki powrotu [Wymagany Restart]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe różdżki nie wymagają poziomu gracza aby je wytworzyć)",
@@ -37,5 +42,11 @@
   "text.autoconfig.recallstaffs.option.ironRecallCost": "Koszt użycia żelaznej różdżki (poziom gracza)",
   "text.autoconfig.recallstaffs.option.goldenRecallCost": "Koszt użycia złotej różdżki (poziom gracza)",
   "text.autoconfig.recallstaffs.option.diamondRecallCost": "Koszt użycia diamentowej różdżki (poziom gracza)",
-  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Koszt użycia netherytowej różdżki (poziom gracza)"
+  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Koszt użycia netherytowej różdżki (poziom gracza)",
+
+  "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar": "Czas trwania nietykalności po użyciu ołtarza powrotnego",
+  "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. Jeśli ta wartość jest niższa niż 40, gracz nie otrzyma nietykalności i nie przeteleportuje się z powrotem do ołtarza powrotnego",
+  "text.autoconfig.recallstaffs.option.recoveryAltarChargingLevelCost": "Liczba poziomów wymagana na pierwsze ładunki (bez używania odłamków echa)",
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount": "Liczba ładunków zasilanych poziomami gracza",
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "Kiedy ustawione na 0, ołtarz powrotny będzie zasilany tylko odłamkami echa; kiedy ustawione na 6 - tylko poziomami gracza"
 }

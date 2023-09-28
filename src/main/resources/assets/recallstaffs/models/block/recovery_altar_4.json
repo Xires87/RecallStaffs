@@ -1,12 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "down": "minecraft:block/oak_planks",
-    "east": "minecraft:block/crafting_table_side",
-    "north": "minecraft:block/crafting_table_front",
-    "particle": "minecraft:block/crafting_table_front",
-    "south": "minecraft:block/crafting_table_side",
-    "up": "recallstaffs:block/recovery_altar_top_4",
-    "west": "minecraft:block/crafting_table_front"
-  }
+	"parent": "recallstaffs:block/recovery_altar_3",
+	"textures": {
+		"side_3": "recallstaffs:block/recovery_altar_side_fill"
+	}
 }

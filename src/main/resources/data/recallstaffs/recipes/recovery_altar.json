@@ -1,8 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
+    "D": {
+      "item": "minecraft:sculk_shrieker"
+    },
     "#": {
-      "item": "minecraft:bedrock"
+      "item": "minecraft:deepslate_tiles"
     },
     "C": {
       "item": "minecraft:recovery_compass"
@@ -17,7 +20,7 @@
   "pattern": [
     "ABA",
     "#C#",
-    "###"
+    "#D#"
   ],
   "result": {
     "item": "recallstaffs:recovery_altar"
