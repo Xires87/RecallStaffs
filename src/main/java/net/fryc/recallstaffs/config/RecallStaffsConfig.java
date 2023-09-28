@@ -76,7 +76,7 @@ public class RecallStaffsConfig implements ConfigData {
     public int invulnerabilityTimeAfterUsingRecoveryAltar = 600;
 
     @ConfigEntry.Category("recoveryaltar")
-    @Comment("Number of levels required for first charges (without using Echo Shards)")
+    @Comment("Number of levels required for last charges (without using Echo Shards)")
     public int recoveryAltarChargingLevelCost = 10;
 
     @ConfigEntry.Category("recoveryaltar")
