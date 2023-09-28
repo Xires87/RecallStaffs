@@ -14,5 +14,5 @@ public interface ServerPlayerGetters {
 
     @Nullable GlobalPos getPositionBeforeUsingRecoveryAltar();
 
-    void setPositionBeforeUsingRecoveryAltar(GlobalPos pos);
+    void setPositionBeforeUsingRecoveryAltar(@Nullable GlobalPos pos);
 }
