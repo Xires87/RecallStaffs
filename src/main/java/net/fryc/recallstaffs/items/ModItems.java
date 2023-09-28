@@ -3,6 +3,7 @@ package net.fryc.recallstaffs.items;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fryc.recallstaffs.RecallStaffs;
+import net.fryc.recallstaffs.blocks.ModBlocks;
 import net.fryc.recallstaffs.items.custom.StaffItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -55,6 +56,7 @@ public class ModItems {
                     entries.add(ModItems.GOLDEN_RECALL_STAFF);
                     entries.add(ModItems.DIAMOND_RECALL_STAFF);
                     entries.add(ModItems.NETHERITE_RECALL_STAFF);
+                    entries.add(ModBlocks.RECOVERY_ALTAR);
                 })
                 .build());
 
