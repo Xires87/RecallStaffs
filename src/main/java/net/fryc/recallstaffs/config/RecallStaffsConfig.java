@@ -11,7 +11,7 @@ public class RecallStaffsConfig implements ConfigData {
     @ConfigEntry.Category("other")
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.RequiresRestart
-    @Comment("Players level required to craft recall staffs (wooden and netherite staffs doesn't require level to craft)")
+    @Comment("Players level required to craft recall staffs (wooden and netherite staffs don't require level to craft)")
     public int recallStaffCraftCost = 10;
     @ConfigEntry.Category("other")
     @ConfigEntry.Gui.RequiresRestart
