@@ -70,6 +70,9 @@ public class RecallStaffsConfig implements ConfigData {
     @ConfigEntry.Category("recallcost")
     public int netheriteRecallCost = 0;
 
+    @ConfigEntry.Category("recallcost")
+    public int recallingWithHorseAdditionalCost = 1;
+
     @ConfigEntry.Category("recoveryaltar")
     @ConfigEntry.Gui.Tooltip
     @Comment("20 = 1s. If this value is lower than 40, player won't get Call of Being and won't teleport back to recovery altar")

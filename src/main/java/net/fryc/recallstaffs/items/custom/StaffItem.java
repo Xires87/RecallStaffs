@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -60,13 +61,14 @@ public class StaffItem extends Item {
             }
             else{
                 cooldown /= 20;
-                splayer.sendMessage(Text.literal("Time before next recall: " + cooldown + "s"));
+                splayer.sendMessage(Text.literal("Time before next recall: " + cooldown + "s"), true);
                 splayer.getItemCooldownManager().set(this, 20);
                 return TypedActionResult.fail(itemStack);
             }
         }
         return TypedActionResult.fail(itemStack);
     }
+
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if(remainingUseTicks > 0 && user.hasStatusEffect(StatusEffects.NAUSEA)){
@@ -78,13 +80,19 @@ public class StaffItem extends Item {
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         ItemStack itemStack = super.finishUsing(stack, world, user);
-        if (!world.isClient) {
+        if (!world.isClient()) {
 
             int d = (int) user.getX();
             int e = (int) user.getY();
             int f = (int) user.getZ();
 
+            AbstractHorseEntity horse = null;
+            int additionalCost = 0;
             if (user.hasVehicle()) {
+                if(user.getVehicle() instanceof AbstractHorseEntity horseEntity){
+                    horse = horseEntity;
+                    additionalCost = RecallStaffs.config.recallingWithHorseAdditionalCost;
+                }
                 user.stopRiding();
             }
 
@@ -95,19 +103,16 @@ public class StaffItem extends Item {
                     Vec3d vec3d = user.getPos();
                     BlockPos spawnPos = ((ServerPlayerGetters) player).getServerPlayerSpawnPosition();
                     if(spawnPos == null) spawnPos = player.getWorld().getSpawnPos();
-                    /*
-                    if(!player.getWorld().getDimension().bedWorks() && player.getSpawnPointDimension() == World.OVERWORLD){
-                        player.moveToWorld(((ServerWorld) world).getServer().getWorld(World.OVERWORLD));
-                    }
-
-                     */
                     if(player.getServer() != null){
+                        if(horse != null){
+                            horse.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), null, horse.getYaw(), horse.getPitch());
+                        }
                         player.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), player.getYaw(), player.getPitch());
                         world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
                     }
 
                     player.getItemCooldownManager().set(this, 100);
-                    player.setExperienceLevel(changePlayerLevel(this, player.experienceLevel));
+                    player.setExperienceLevel(changePlayerLevel(this, player.experienceLevel, additionalCost));
 
                     if(RecallStaffs.config.recallingSummonsLightningBolt) EntityType.LIGHTNING_BOLT.spawn((ServerWorld) world, new BlockPos(d,e,f), SpawnReason.TRIGGERED);
                     ((ServerPlayerGetters) player).setRecallStaffCooldown(setStaffCooldown(this));
@@ -116,7 +121,7 @@ public class StaffItem extends Item {
                 }
                 else{
                     player.getItemCooldownManager().set(this, 40);
-                    player.sendMessage(Text.literal("Your level is too low to recall!").formatted(Formatting.RED));
+                    player.sendMessage(Text.literal("Your level is too low to recall!").formatted(Formatting.RED), true);
                     if(user.hasStatusEffect(StatusEffects.NAUSEA)){
                         if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 700){
                             user.removeStatusEffect(StatusEffects.NAUSEA);
@@ -149,8 +154,8 @@ public class StaffItem extends Item {
         else return 0;
     }
 
-    private static int changePlayerLevel(Item item, int level){
-        level -= getUsageCost(item);
+    private static int changePlayerLevel(Item item, int level, int additionalCost){
+        level -= getUsageCost(item) + additionalCost;
 
         if(level < 0) level = 0;
         return level;
