@@ -1,6 +1,7 @@
 package net.fryc.recallstaffs.items.custom;
 
 import net.fryc.recallstaffs.RecallStaffs;
+import net.fryc.recallstaffs.config.ConfigHelper;
 import net.fryc.recallstaffs.items.ModItems;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
 import net.minecraft.client.item.TooltipContext;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+import oshi.util.tuples.Pair;
 
 import java.util.List;
 
@@ -35,8 +37,9 @@ public class StaffItem extends Item {
 
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if(RecallStaffs.config.enableTooltipsForRecallStaffs){
-            tooltip.add(Text.literal("Usage cost: " + getUsageCost(this) + " levels").formatted(Formatting.BLUE));
-            tooltip.add(Text.literal("Cooldown: " + getStaffCooldown(this) + "s").formatted(Formatting.GRAY));
+            Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
+            tooltip.add(Text.literal("Usage cost: " + pair.getA() + " levels").formatted(Formatting.BLUE));
+            tooltip.add(Text.literal("Cooldown: " + pair.getB() + "s").formatted(Formatting.GRAY));
         }
         super.appendTooltip(stack, world, tooltip, context);
     }
@@ -97,7 +100,10 @@ public class StaffItem extends Item {
             }
 
             if (user instanceof ServerPlayerEntity player) {
-                if(!(player.experienceLevel < getUsageCost(this) && RecallStaffs.config.checkPlayersLevelBeforeRecall)){
+                Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
+                int recallCost = pair.getA();
+                int recallCooldown = pair.getB();
+                if(!(player.experienceLevel < recallCost && RecallStaffs.config.checkPlayersLevelBeforeRecall)){
                     player.setInvulnerable(true);
 
                     Vec3d vec3d = user.getPos();
@@ -111,16 +117,16 @@ public class StaffItem extends Item {
                         world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
                     }
 
-                    player.getItemCooldownManager().set(this, 100);
-                    player.setExperienceLevel(changePlayerLevel(this, player.experienceLevel, additionalCost));
+                    player.getItemCooldownManager().set(stack.getItem(), 100);
+                    player.setExperienceLevel(changePlayerLevel(player.experienceLevel, recallCost, additionalCost));
 
                     if(RecallStaffs.config.recallingSummonsLightningBolt) EntityType.LIGHTNING_BOLT.spawn((ServerWorld) world, new BlockPos(d,e,f), SpawnReason.TRIGGERED);
-                    ((ServerPlayerGetters) player).setRecallStaffCooldown(setStaffCooldown(this));
+                    ((ServerPlayerGetters) player).setRecallStaffCooldown(recallCooldown * 20);
 
                     player.setInvulnerable(false);
                 }
                 else{
-                    player.getItemCooldownManager().set(this, 40);
+                    player.getItemCooldownManager().set(stack.getItem(), 40);
                     player.sendMessage(Text.literal("Your level is too low to recall!").formatted(Formatting.RED), true);
                     if(user.hasStatusEffect(StatusEffects.NAUSEA)){
                         if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 700){
@@ -134,31 +140,11 @@ public class StaffItem extends Item {
         return itemStack;
     }
 
-    private static int getUsageCost(Item item){
-        if(item.getDefaultStack().isOf(ModItems.WOODEN_RECALL_STAFF)) return RecallStaffs.config.woodenRecallCost;
-        else if(item.getDefaultStack().isOf(ModItems.COPPER_RECALL_STAFF)) return RecallStaffs.config.copperRecallCost;
-        else if(item.getDefaultStack().isOf(ModItems.IRON_RECALL_STAFF)) return RecallStaffs.config.ironRecallCost;
-        else if(item.getDefaultStack().isOf(ModItems.GOLDEN_RECALL_STAFF)) return RecallStaffs.config.goldenRecallCost;
-        else if(item.getDefaultStack().isOf(ModItems.DIAMOND_RECALL_STAFF)) return RecallStaffs.config.diamondRecallCost;
-        else if(item.getDefaultStack().isOf(ModItems.NETHERITE_RECALL_STAFF)) return RecallStaffs.config.netheriteRecallCost;
-        else return 0;
-    }
+    private static int changePlayerLevel(int playerLevel, int cost, int additionalCost){
+        playerLevel -= cost + additionalCost;
 
-    private static int getStaffCooldown(Item item){
-        if(item.getDefaultStack().isOf(ModItems.WOODEN_RECALL_STAFF)) return RecallStaffs.config.woodenRecallStaffCooldown;
-        else if(item.getDefaultStack().isOf(ModItems.COPPER_RECALL_STAFF)) return RecallStaffs.config.copperRecallStaffCooldown;
-        else if(item.getDefaultStack().isOf(ModItems.IRON_RECALL_STAFF)) return RecallStaffs.config.ironRecallStaffCooldown;
-        else if(item.getDefaultStack().isOf(ModItems.GOLDEN_RECALL_STAFF)) return RecallStaffs.config.goldenRecallStaffCooldown;
-        else if(item.getDefaultStack().isOf(ModItems.DIAMOND_RECALL_STAFF)) return RecallStaffs.config.diamondRecallStaffCooldown;
-        else if(item.getDefaultStack().isOf(ModItems.NETHERITE_RECALL_STAFF)) return RecallStaffs.config.netheriteRecallStaffCooldown;
-        else return 0;
-    }
-
-    private static int changePlayerLevel(Item item, int level, int additionalCost){
-        level -= getUsageCost(item) + additionalCost;
-
-        if(level < 0) level = 0;
-        return level;
+        if(playerLevel < 0) playerLevel = 0;
+        return playerLevel;
     }
 
     private static int setNauseaTime(Item item){
@@ -169,10 +155,6 @@ public class StaffItem extends Item {
         else if(item.getDefaultStack().isOf(ModItems.DIAMOND_RECALL_STAFF)) time -= 500;
         else if(item.getDefaultStack().isOf(ModItems.NETHERITE_RECALL_STAFF)) time = 0;
         return time;
-    }
-
-    private static int setStaffCooldown(Item item){
-        return getStaffCooldown(item) * 20;
     }
 
 }
