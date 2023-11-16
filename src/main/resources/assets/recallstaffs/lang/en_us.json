@@ -17,7 +17,7 @@
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Recovery Altar",
 
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Players level required to craft recall staffs [Restart Required]",
-  "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Wooden and netherite staffs doesn't require level to craft)",
+  "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Wooden and netherite staffs don't require level to craft)",
 
   "text.autoconfig.recallstaffs.option.resetStaffCooldownAfterDeath": "Reset recall staff's cooldown after death [Restart Required]",
 
@@ -43,6 +43,7 @@
   "text.autoconfig.recallstaffs.option.goldenRecallCost": "Golden recall staff's recall cost (levels)",
   "text.autoconfig.recallstaffs.option.diamondRecallCost": "Diamond recall staff's recall cost (levels)",
   "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Netherite recall staff's recall cost (levels)",
+  "text.autoconfig.recallstaffs.option.recallingWithHorseAdditionalCost": "Additional cost when recalling with a horse (levels)",
 
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar": "Call of Being duration after using recovery altar",
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. If this value is lower than 40, player won't get Call of Being and won't teleport back to recovery altar",

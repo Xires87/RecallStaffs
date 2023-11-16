@@ -33,7 +33,7 @@ public class RecallStaffs implements ModInitializer {
 
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModEffects.registerEffects(); // todo test configu (<40) ,
+		ModEffects.registerEffects();
 		if(!config.resetStaffCooldownAfterDeath){
 			ServerPlayerEvents.COPY_FROM.register(new CopyRecallStaffCooldown());
 		}
