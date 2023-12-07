@@ -16,6 +16,8 @@
   "text.autoconfig.recallstaffs.category.recallcost": "Recall Cost",
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Recovery Altar",
 
+  "text.craftingmanipulator.crafting_requirements": "Crafting Requirements (SHIFT)",
+
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Players level required to craft recall staffs [Restart Required]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Wooden and netherite staffs don't require level to craft)",
 

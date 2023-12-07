@@ -23,6 +23,9 @@ public class ConfigHelper {
     public static int diamondRecallCost = RecallStaffs.config.diamondRecallCost;
     public static int netheriteRecallCost = RecallStaffs.config.netheriteRecallCost;
 
+
+    public static int recallStaffCraftCost = RecallStaffs.config.recallStaffCraftCost;
+
     public static Pair<Integer, Integer> getRecallStaffCostAndCooldown(ItemStack staff, @Nullable World world){
         if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
             if(world != null){

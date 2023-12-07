@@ -3,6 +3,7 @@ package net.fryc.recallstaffs.network.s2c;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 
 import net.fryc.recallstaffs.config.ConfigHelper;
+import net.fryc.recallstaffs.craftingmanipulator.ClientRules;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
@@ -23,5 +24,8 @@ public class ConfigAnswerS2CPacket {
         ConfigHelper.goldenRecallCost = buf.readInt();
         ConfigHelper.diamondRecallCost = buf.readInt();
         ConfigHelper.netheriteRecallCost = buf.readInt();
+
+        ConfigHelper.recallStaffCraftCost = buf.readInt();
+        ClientRules.setRuleStatus();
     }
 }

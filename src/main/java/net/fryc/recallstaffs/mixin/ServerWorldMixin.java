@@ -32,6 +32,8 @@ abstract class ServerWorldMixin {
         buf.writeInt(RecallStaffs.config.diamondRecallCost);
         buf.writeInt(RecallStaffs.config.netheriteRecallCost);
 
+        buf.writeInt(RecallStaffs.config.recallStaffCraftCost);
+
         ServerPlayNetworking.send(player, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
     }
 }
