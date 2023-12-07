@@ -16,6 +16,8 @@
   "text.autoconfig.recallstaffs.category.recallcost": "Koszt powrotu",
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Ołtarz powrotny",
 
+  "text.craftingmanipulator.crafting_requirements": "Wymagania do stworzenia (SHIFT)",
+
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia różdżki powrotu [Wymagany Restart]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe różdżki nie wymagają poziomu gracza aby je wytworzyć)",
 

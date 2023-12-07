@@ -3,6 +3,7 @@ package net.fryc.recallstaffs;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fryc.recallstaffs.blocks.ModBlocks;
+import net.fryc.recallstaffs.craftingmanipulator.ClientRules;
 import net.fryc.recallstaffs.items.custom.StaffItem;
 import net.fryc.recallstaffs.network.ModPackets;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -19,6 +20,9 @@ public class RecallStaffsClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RECOVERY_ALTAR, RenderLayer.getCutout());
 
+        ClientRules.enableCraftingManipulatorClientRules();
+
         ModPackets.registerS2CPackets();
+
     }
 }

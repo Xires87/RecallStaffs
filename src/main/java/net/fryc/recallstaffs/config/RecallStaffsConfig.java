@@ -21,10 +21,12 @@ public class RecallStaffsConfig implements ConfigData {
     public boolean recallingSummonsLightningBolt = true;
 
     @ConfigEntry.Category("other")
+    @Comment("This option is client sided")
     public boolean enableTooltipsForRecallStaffs = true;
 
     @ConfigEntry.Category("other")
     @ConfigEntry.Gui.RequiresRestart
+    @Comment("This option is client sided")
     public boolean enableCraftingRequirementsTooltipForRecallStaffs = true;
 
 
