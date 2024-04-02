@@ -26,6 +26,10 @@ public class ConfigHelper {
 
     public static int recallStaffCraftCost = RecallStaffs.config.recallStaffCraftCost;
 
+    /**
+     *  A - recall cost
+     *  B - recall cooldown
+     */
     public static Pair<Integer, Integer> getRecallStaffCostAndCooldown(ItemStack staff, @Nullable World world){
         if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
             if(world != null){
