@@ -16,7 +16,8 @@
   "text.autoconfig.recallstaffs.category.recallcost": "Koszt powrotu",
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Ołtarz powrotny",
 
-  "text.craftingmanipulator.crafting_requirements": "Wymagania do stworzenia (SHIFT)",
+  "text.recallstaffs.higher_level_required": "Wymagany wyższy poziom doświadczenia",
+  "text.recallstaffs.consumes_level": "Stworzenie tego przedmiotu obniży twój poziom doświadczenia",
 
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia różdżki powrotu [Wymagany Restart]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe różdżki nie wymagają poziomu gracza aby je wytworzyć)",
@@ -26,7 +27,6 @@
   "text.autoconfig.recallstaffs.option.recallingSummonsLightningBolt": "Użycie różdżki powrotu przywołuje piorun",
 
   "text.autoconfig.recallstaffs.option.enableTooltipsForRecallStaffs": "Włącz podpisy dla różdżek powrotu (koszt użycia i czas odnowienia)",
-  "text.autoconfig.recallstaffs.option.enableCraftingRequirementsTooltipForRecallStaffs": "Włącz podpisy dla różdżek powrotu (crafting requirements) [Wymagany Restart]",
 
   "text.autoconfig.recallstaffs.option.woodenRecallStaffCooldown": "Czas odnowienia drewnianej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
   "text.autoconfig.recallstaffs.option.copperRecallStaffCooldown": "Czas odnowienia miedzianej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",

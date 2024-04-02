@@ -16,7 +16,8 @@
   "text.autoconfig.recallstaffs.category.recallcost": "Recall Cost",
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Recovery Altar",
 
-  "text.craftingmanipulator.crafting_requirements": "Crafting Requirements (SHIFT)",
+  "text.recallstaffs.higher_level_required": "Higher experience level required",
+  "text.recallstaffs.consumes_level": "Crafting this item will lower your experience level",
 
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Players level required to craft recall staffs [Restart Required]",
   "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Wooden and netherite staffs don't require level to craft)",
@@ -26,7 +27,6 @@
   "text.autoconfig.recallstaffs.option.recallingSummonsLightningBolt": "Using recall staff summons lightning bolt",
 
   "text.autoconfig.recallstaffs.option.enableTooltipsForRecallStaffs": "Enable tooltips for recall staffs (usage cost and cooldown)",
-  "text.autoconfig.recallstaffs.option.enableCraftingRequirementsTooltipForRecallStaffs": "Enable tooltips for recall staffs (crafting requirements) [Restart Required]",
 
   "text.autoconfig.recallstaffs.option.woodenRecallStaffCooldown": "Wooden recall staff's cooldown (seconds) [Leave world to update tooltip]",
   "text.autoconfig.recallstaffs.option.copperRecallStaffCooldown": "Copper recall staff's cooldown (seconds) [Leave world to update tooltip]",

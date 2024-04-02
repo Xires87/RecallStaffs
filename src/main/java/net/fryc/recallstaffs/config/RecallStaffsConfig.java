@@ -24,12 +24,6 @@ public class RecallStaffsConfig implements ConfigData {
     @Comment("This option is client sided")
     public boolean enableTooltipsForRecallStaffs = true;
 
-    @ConfigEntry.Category("other")
-    @ConfigEntry.Gui.RequiresRestart
-    @Comment("This option is client sided")
-    public boolean enableCraftingRequirementsTooltipForRecallStaffs = true;
-
-
     @ConfigEntry.Category("cooldown")
     public int woodenRecallStaffCooldown = 1400;
 
