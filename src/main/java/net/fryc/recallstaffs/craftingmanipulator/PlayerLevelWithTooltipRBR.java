@@ -1,6 +1,7 @@
 package net.fryc.recallstaffs.craftingmanipulator;
 
 import net.fryc.craftingmanipulator.rules.recipeblocking.PlayerLevelRBR;
+import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.tags.ModItemTags;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.RecipeInputInventory;
@@ -39,7 +40,7 @@ public class PlayerLevelWithTooltipRBR extends PlayerLevelRBR {
 
     public void drawExperienceOrbWhenNeeded(ItemStack craftedItem, ServerPlayerEntity player, ScreenHandler handler){
         if(!craftedItem.isEmpty()){
-            if(craftedItem.isIn(ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL)){
+            if(craftedItem.isIn(ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL) && RecallStaffs.config.recallStaffCraftCost > 0){
                 if(handler instanceof PlayerScreenHandler){
                     this.informAboutItemModification(player, "inventory_xp_orb");
                     this.drawMouseOverTooltip(player, Text.translatable("text.recallstaffs.consumes_level"), 137, 16, 11, 11);
