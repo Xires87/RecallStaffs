@@ -1,4 +1,8 @@
 {
+  "tag.item.recallstaffs.recall_staffs": "Recall Staffs",
+  "tag.item.recallstaffs.recall_staffs_require_level": "Recall staffs that require specified level to craft",
+  "tag.item.recallstaffs.recovery_altar_charge_item": "Items that can be used to charge Recovery Altar",
+
   "item.recallstaffs.wooden_recall_staff": "Wooden Recall Staff",
   "item.recallstaffs.copper_recall_staff": "Copper Recall Staff",
   "item.recallstaffs.iron_recall_staff": "Iron Recall Staff",

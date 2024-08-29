@@ -28,7 +28,7 @@
   "overrides": [
     {
       "predicate": {
-        "recalling": 1
+        "recallstaffs:recalling": 1
       },
       "model": "recallstaffs:item/wooden_recall_staff_use"
     }

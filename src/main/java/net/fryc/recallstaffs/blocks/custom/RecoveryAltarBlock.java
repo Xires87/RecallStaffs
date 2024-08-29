@@ -89,8 +89,8 @@ public class RecoveryAltarBlock extends Block {
                                 serverPlayerEntity.getBlockPos()));
 
                         // teleporting player to last death position
-                        serverPlayerEntity.teleport(serverPlayerEntity.getServer().getWorld(optional.get().getDimension()),
-                                optional.get().getPos().getX(), optional.get().getPos().getY(), optional.get().getPos().getZ(),
+                        serverPlayerEntity.teleport(serverPlayerEntity.getServer().getWorld(optional.get().dimension()),
+                                optional.get().pos().getX(), optional.get().pos().getY(), optional.get().pos().getZ(),
                                 serverPlayerEntity.getYaw(), serverPlayerEntity.getPitch());
 
                         //giving status effect (after teleporting)

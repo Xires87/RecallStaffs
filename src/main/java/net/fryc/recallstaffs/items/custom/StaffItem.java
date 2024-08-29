@@ -1,10 +1,9 @@
 package net.fryc.recallstaffs.items.custom;
 
 import net.fryc.recallstaffs.RecallStaffs;
-import net.fryc.recallstaffs.config.ConfigHelper;
 import net.fryc.recallstaffs.items.ModItems;
+import net.fryc.recallstaffs.util.ConfigHelper;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -14,6 +13,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
@@ -35,13 +34,13 @@ public class StaffItem extends Item {
         super(settings);
     }
 
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if(RecallStaffs.config.enableTooltipsForRecallStaffs){
-            Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
+            Pair<Integer, Integer> pair = ConfigHelper.getClientRecallStaffCostAndCooldown(stack);
             tooltip.add(Text.literal("Usage cost: " + pair.getA() + " levels").formatted(Formatting.BLUE));
             tooltip.add(Text.literal("Cooldown: " + pair.getB() + "s").formatted(Formatting.GRAY));
         }
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, context, tooltip, type);
     }
 
     public UseAction getUseAction(ItemStack stack) {

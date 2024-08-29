@@ -12,6 +12,7 @@ import net.fryc.recallstaffs.craftingmanipulator.Rules;
 import net.fryc.recallstaffs.effects.ModEffects;
 import net.fryc.recallstaffs.event.CopyRecallStaffCooldown;
 import net.fryc.recallstaffs.items.ModItems;
+import net.fryc.recallstaffs.network.ModPackets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,5 +37,7 @@ public class RecallStaffs implements ModInitializer {
 		Rules.enableCraftingManipulatorRules();
 
 		CommandRegistrationCallback.EVENT.register(ResetStaffCooldownCommand::register);
+
+		ModPackets.registerPayloads();
 	}
 }

@@ -1,4 +1,8 @@
 {
+  "tag.item.recallstaffs.recall_staffs": "Różdżki Powrotu",
+  "tag.item.recallstaffs.recall_staffs_require_level": "Różdżki powrotu wymagające określonego poziomu do stworzenia",
+  "tag.item.recallstaffs.recovery_altar_charge_item": "Przedmioty, które można wykorzystać aby zasilić Ołtarz Powrotny",
+
   "item.recallstaffs.wooden_recall_staff": "Drewniana Różdżka Powrotu",
   "item.recallstaffs.copper_recall_staff": "Miedziana Różdżka Powrotu",
   "item.recallstaffs.iron_recall_staff": "Żelazna Różdżka Powrotu",

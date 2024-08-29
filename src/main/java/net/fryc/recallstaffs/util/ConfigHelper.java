@@ -31,53 +31,50 @@ public class ConfigHelper {
      *  B - recall cooldown
      */
     public static Pair<Integer, Integer> getRecallStaffCostAndCooldown(ItemStack staff, @Nullable World world){
-        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(woodenRecallCost, woodenRecallStaffCooldown);
-                }
+        if(world != null){
+            if(world.isClient()){
+                return getClientRecallStaffCostAndCooldown(staff);
             }
+        }
+
+        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
             return new Pair<>(RecallStaffs.config.woodenRecallCost, RecallStaffs.config.woodenRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.COPPER_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(copperRecallCost, copperRecallStaffCooldown);
-                }
-            }
             return new Pair<>(RecallStaffs.config.copperRecallCost, RecallStaffs.config.copperRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.IRON_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(ironRecallCost, ironRecallStaffCooldown);
-                }
-            }
             return new Pair<>(RecallStaffs.config.ironRecallCost, RecallStaffs.config.ironRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.GOLDEN_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(goldenRecallCost, goldenRecallStaffCooldown);
-                }
-            }
             return new Pair<>(RecallStaffs.config.goldenRecallCost, RecallStaffs.config.goldenRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.DIAMOND_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(diamondRecallCost, diamondRecallStaffCooldown);
-                }
-            }
             return new Pair<>(RecallStaffs.config.diamondRecallCost, RecallStaffs.config.diamondRecallStaffCooldown);
         }
         else {
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(netheriteRecallCost, netheriteRecallStaffCooldown);
-                }
-            }
             return new Pair<>(RecallStaffs.config.netheriteRecallCost, RecallStaffs.config.netheriteRecallStaffCooldown);
+        }
+    }
+
+    public static Pair<Integer, Integer> getClientRecallStaffCostAndCooldown(ItemStack staff){
+        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
+            return new Pair<>(woodenRecallCost, woodenRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.COPPER_RECALL_STAFF)){
+            return new Pair<>(copperRecallCost, copperRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.IRON_RECALL_STAFF)){
+            return new Pair<>(ironRecallCost, ironRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.GOLDEN_RECALL_STAFF)){
+            return new Pair<>(goldenRecallCost, goldenRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.DIAMOND_RECALL_STAFF)){
+            return new Pair<>(diamondRecallCost, diamondRecallStaffCooldown);
+        }
+        else {
+            return new Pair<>(netheriteRecallCost, netheriteRecallStaffCooldown);
         }
     }
 }

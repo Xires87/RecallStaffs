@@ -1,10 +1,10 @@
 package net.fryc.recallstaffs.mixin;
 
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fryc.recallstaffs.RecallStaffs;
-import net.fryc.recallstaffs.network.ModPackets;
-import net.minecraft.network.PacketByteBuf;
+import net.fryc.recallstaffs.network.payloads.AnswerConfigPayload;
+import net.fryc.recallstaffs.network.payloads.SecondAnswerConfigPayload;
+import net.fryc.recallstaffs.network.payloads.ThirdAnswerConfigPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,25 +15,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerWorld.class)
 abstract class ServerWorldMixin {
 
+    //informs client about server's config to avoid visual bugs
     @Inject(method = "onPlayerConnected(Lnet/minecraft/server/network/ServerPlayerEntity;)V", at = @At("TAIL"))
     private void sendConfigToClient(ServerPlayerEntity player, CallbackInfo info) {
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(RecallStaffs.config.woodenRecallStaffCooldown);
-        buf.writeInt(RecallStaffs.config.copperRecallStaffCooldown);
-        buf.writeInt(RecallStaffs.config.ironRecallStaffCooldown);
-        buf.writeInt(RecallStaffs.config.goldenRecallStaffCooldown);
-        buf.writeInt(RecallStaffs.config.diamondRecallStaffCooldown);
-        buf.writeInt(RecallStaffs.config.netheriteRecallStaffCooldown);
-
-        buf.writeInt(RecallStaffs.config.woodenRecallCost);
-        buf.writeInt(RecallStaffs.config.copperRecallCost);
-        buf.writeInt(RecallStaffs.config.ironRecallCost);
-        buf.writeInt(RecallStaffs.config.goldenRecallCost);
-        buf.writeInt(RecallStaffs.config.diamondRecallCost);
-        buf.writeInt(RecallStaffs.config.netheriteRecallCost);
-
-        buf.writeInt(RecallStaffs.config.recallStaffCraftCost);
-
-        ServerPlayNetworking.send(player, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
+        ServerPlayNetworking.send(player, new AnswerConfigPayload(
+                RecallStaffs.config.woodenRecallStaffCooldown,
+                RecallStaffs.config.copperRecallStaffCooldown,
+                RecallStaffs.config.ironRecallStaffCooldown,
+                RecallStaffs.config.goldenRecallStaffCooldown,
+                RecallStaffs.config.diamondRecallStaffCooldown,
+                RecallStaffs.config.netheriteRecallStaffCooldown
+        ));
+        ServerPlayNetworking.send(player, new SecondAnswerConfigPayload(
+                RecallStaffs.config.woodenRecallCost,
+                RecallStaffs.config.copperRecallCost,
+                RecallStaffs.config.ironRecallCost,
+                RecallStaffs.config.goldenRecallCost,
+                RecallStaffs.config.diamondRecallCost,
+                RecallStaffs.config.netheriteRecallCost
+        ));
+        ServerPlayNetworking.send(player, new ThirdAnswerConfigPayload(
+                RecallStaffs.config.recallStaffCraftCost
+        ));
     }
 }

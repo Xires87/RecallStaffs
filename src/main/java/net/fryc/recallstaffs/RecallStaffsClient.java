@@ -13,7 +13,7 @@ public class RecallStaffsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        ModelPredicateProviderRegistry.register(new Identifier("recalling"), (stack, world, entity, seed) -> {
+        ModelPredicateProviderRegistry.register(Identifier.of(RecallStaffs.MOD_ID, "recalling"), (stack, world, entity, seed) -> {
             return entity != null && entity.isUsingItem() && entity.getActiveItem().getItem() instanceof StaffItem ? 1.0F : 0.0F;
         });
 

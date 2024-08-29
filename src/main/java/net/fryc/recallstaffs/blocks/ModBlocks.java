@@ -1,6 +1,5 @@
 package net.fryc.recallstaffs.blocks;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.blocks.custom.RecoveryAltarBlock;
 import net.minecraft.block.AbstractBlock;
@@ -26,12 +25,12 @@ public class ModBlocks {
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(RecallStaffs.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(RecallStaffs.MOD_ID, name), block);
     }
 
     private static Item registerBlockItem(String name, Block block){
-        return Registry.register(Registries.ITEM, new Identifier(RecallStaffs.MOD_ID, name),
-                new BlockItem(block, new FabricItemSettings()));
+        return Registry.register(Registries.ITEM, Identifier.of(RecallStaffs.MOD_ID, name),
+                new BlockItem(block, new Item.Settings()));
     }
 
 
