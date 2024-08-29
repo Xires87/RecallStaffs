@@ -1,4 +1,4 @@
-package net.fryc.recallstaffs.config;
+package net.fryc.recallstaffs.util;
 
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.items.ModItems;
