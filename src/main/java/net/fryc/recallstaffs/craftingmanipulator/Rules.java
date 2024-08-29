@@ -11,7 +11,7 @@ public class Rules {
             ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, RecallStaffs.config.recallStaffCraftCost
     ));
 
-    public static ExperienceOCR REMOVE_LEVEL = (ExperienceOCR) CMRegistries.registerCraftingRule("recallstaffs_crafting_comsumes_level", new ExperienceOCR(
+    public static ExperienceOCR REMOVE_LEVEL = (ExperienceOCR) CMRegistries.registerCraftingRule("recallstaffs_crafting_consumes_level", new ExperienceOCR(
             ModItemTags.RECALL_STAFFS_REQUIRE_LEVEL, -RecallStaffs.config.recallStaffCraftCost, false
     ));
 
