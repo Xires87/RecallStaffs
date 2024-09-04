@@ -7,7 +7,7 @@
     "item": "recallstaffs:diamond_recall_staff"
   },
   "result": {
-    "item": "recallstaffs:netherite_recall_staff"
+    "id": "recallstaffs:netherite_recall_staff"
   },
   "template": {
     "item": "minecraft:netherite_upgrade_smithing_template"

@@ -20,6 +20,13 @@
   "text.autoconfig.recallstaffs.category.recallcost": "Koszt powrotu",
   "text.autoconfig.recallstaffs.category.recoveryaltar": "Ołtarz powrotny",
 
+  "text.recallstaffs.usage_cost": "Koszt użycia",
+  "text.recallstaffs.levels": "poziomów",
+  "text.recallstaffs.cooldown": "Czas odnowienia",
+  "text.recallstaffs.seconds": "s",
+  "text.recallstaffs.time_before_next_recall": "Czas przed następnym powrotem",
+  "text.recallstaffs.too_low_level": "Twój poziom jest zbyt niski by użyć powrotu",
+
   "text.recallstaffs.higher_level_required": "Wymagany wyższy poziom doświadczenia",
   "text.recallstaffs.consumes_level": "Stworzenie tego przedmiotu obniży twój poziom doświadczenia",
 

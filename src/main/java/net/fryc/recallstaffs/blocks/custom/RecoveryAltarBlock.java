@@ -17,8 +17,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
@@ -47,23 +50,11 @@ public class RecoveryAltarBlock extends Block {
         builder.add(new Property[]{RECOVERY_CHARGES});
     }
 
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(state.get(RECOVERY_CHARGES) < MAX_CHARGES - RecallStaffs.config.recoveryAltarLevelChargesCount){
-            if(hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))){
-                return ActionResult.PASS;
-            }
-            else if(isChargeItem(itemStack)){
-                charge(player, world, pos, state);
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
-                return ActionResult.success(world.isClient);
-            }
-
             return ActionResult.FAIL;
         }
-        else if(state.get(RECOVERY_CHARGES) < MAX_CHARGES){
+        if(state.get(RECOVERY_CHARGES) < MAX_CHARGES){
             int levelCost = RecallStaffs.config.recoveryAltarChargingLevelCost;
             if(levelCost < 0) levelCost = 0;
             if(player.getAbilities().creativeMode){
@@ -75,9 +66,11 @@ public class RecoveryAltarBlock extends Block {
                 charge(player, world, pos, state);
                 return ActionResult.success(world.isClient);
             }
+            if(world.isClient()){
+                player.sendMessage(Text.translatable("text.recallstaffs.higher_level_required").formatted(Formatting.RED), true);
+            }
             return ActionResult.FAIL;
         }
-
         else {
             if(!world.isClient()){
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
@@ -112,6 +105,23 @@ public class RecoveryAltarBlock extends Block {
             }
             return ActionResult.CONSUME;
         }
+    }
+
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if(state.get(RECOVERY_CHARGES) < MAX_CHARGES - RecallStaffs.config.recoveryAltarLevelChargesCount){
+            if(hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))){
+                return ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+            }
+            else if(isChargeItem(itemStack)){
+                charge(player, world, pos, state);
+                if (!player.getAbilities().creativeMode) {
+                    itemStack.decrement(1);
+                }
+                return ItemActionResult.success(world.isClient);
+            }
+        }
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public static void charge(@Nullable Entity charger, World world, BlockPos pos, BlockState state) {

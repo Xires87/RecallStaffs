@@ -37,8 +37,8 @@ public class StaffItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if(RecallStaffs.config.enableTooltipsForRecallStaffs){
             Pair<Integer, Integer> pair = ConfigHelper.getClientRecallStaffCostAndCooldown(stack);
-            tooltip.add(Text.literal("Usage cost: " + pair.getA() + " levels").formatted(Formatting.BLUE));
-            tooltip.add(Text.literal("Cooldown: " + pair.getB() + "s").formatted(Formatting.GRAY));
+            tooltip.add(Text.literal(Text.translatable("text.recallstaffs.usage_cost").getString() + ": " + pair.getA() + " " + Text.translatable("text.recallstaffs.levels").getString()).formatted(Formatting.BLUE));
+            tooltip.add(Text.literal(Text.translatable("text.recallstaffs.cooldown").getString() + ": " + pair.getB() + Text.translatable("text.recallstaffs.seconds").getString()).formatted(Formatting.GRAY));
         }
         super.appendTooltip(stack, context, tooltip, type);
     }
@@ -47,7 +47,7 @@ public class StaffItem extends Item {
         return UseAction.BOW;
     }
 
-    public int getMaxUseTime(ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 140;
     }
 
@@ -63,7 +63,7 @@ public class StaffItem extends Item {
             }
             else{
                 cooldown /= 20;
-                splayer.sendMessage(Text.literal("Time before next recall: " + cooldown + "s"), true);
+                splayer.sendMessage(Text.literal(Text.translatable("text.recallstaffs.time_before_next_recall").getString() + ": " + cooldown + Text.translatable("text.recallstaffs.seconds").getString()), true);
                 splayer.getItemCooldownManager().set(this, 20);
                 return TypedActionResult.fail(itemStack);
             }
@@ -126,7 +126,7 @@ public class StaffItem extends Item {
                 }
                 else{
                     player.getItemCooldownManager().set(stack.getItem(), 40);
-                    player.sendMessage(Text.literal("Your level is too low to recall!").formatted(Formatting.RED), true);
+                    player.sendMessage(Text.translatable("text.recallstaffs.too_low_level").formatted(Formatting.RED), true);
                     if(user.hasStatusEffect(StatusEffects.NAUSEA)){
                         if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 700){
                             user.removeStatusEffect(StatusEffects.NAUSEA);

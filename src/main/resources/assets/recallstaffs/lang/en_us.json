@@ -14,6 +14,13 @@
 
   "effect.recallstaffs.invulnerability": "Call of Being",
 
+  "text.recallstaffs.usage_cost": "Usage cost",
+  "text.recallstaffs.levels": "levels",
+  "text.recallstaffs.cooldown": "Cooldown",
+  "text.recallstaffs.seconds": "s",
+  "text.recallstaffs.time_before_next_recall": "Time before next recall",
+  "text.recallstaffs.too_low_level": "Your level is too low to recall!",
+
   "text.autoconfig.recallstaffs.title": "Recall Staffs Config",
   "text.autoconfig.recallstaffs.category.other": "Other",
   "text.autoconfig.recallstaffs.category.cooldown": "Cooldown",
