@@ -16,6 +16,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -35,13 +37,16 @@ public class StaffItem extends Item {
         super(settings);
     }
 
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if(RecallStaffs.config.enableTooltipsForRecallStaffs){
-            Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
-            tooltip.add(Text.literal("Usage cost: " + pair.getA() + " levels").formatted(Formatting.BLUE));
-            tooltip.add(Text.literal("Cooldown: " + pair.getB() + "s").formatted(Formatting.GRAY));
+            Pair<Integer, Integer> pair = ConfigHelper.getClientRecallStaffCostAndCooldown(stack);
+            tooltip.add(Text.literal(Text.translatable("text.recallstaffs.usage_cost").getString() + ": " + pair.getA() + " " + Text.translatable("text.recallstaffs.levels").getString()).formatted(Formatting.BLUE));
+            tooltip.add(Text.literal(Text.translatable("text.recallstaffs.cooldown").getString() + ": " + pair.getB() + Text.translatable("text.recallstaffs.seconds").getString()).formatted(Formatting.GRAY));
         }
-        super.appendTooltip(stack, world, tooltip, context);
+        if(isCalibrated(stack)){
+            tooltip.add(Text.translatable("text.recallstaffs.revert_calibration"));
+        }
+        super.appendTooltip(stack, context, tooltip, type);
     }
 
     public UseAction getUseAction(ItemStack stack) {
@@ -52,19 +57,31 @@ public class StaffItem extends Item {
         return 140;
     }
 
+    public Text getName(ItemStack stack) {
+        String calibrated = isCalibrated(stack) ? "_calibrated" : "";
+        return Text.translatable(this.getTranslationKey(stack) + calibrated);
+    }
+
     public ActionResult useOnBlock(ItemUsageContext context){
-        if(isCalibrated(context.getStack())){
-            return ActionResult.PASS;
-        }
-
         if(!context.getWorld().isClient()){
-            if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
-                context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
-                        Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
-                        true
-                ));
+            if(this.canBeCalibrated()){
+                if(isCalibrated(context.getStack())){
+                    if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.GRINDSTONE)){
+                        context.getStack().remove(DataComponentTypes.LODESTONE_TRACKER);
+                        context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS);
 
-                return ActionResult.success(true);
+                        return ActionResult.success(true);
+                    }
+                }
+                else if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
+                    context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
+                            Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
+                            true
+                    ));
+                    context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ITEM_LODESTONE_COMPASS_LOCK, SoundCategory.BLOCKS);
+
+                    return ActionResult.success(true);
+                }
             }
         }
 
@@ -164,6 +181,10 @@ public class StaffItem extends Item {
         }
 
         return itemStack;
+    }
+
+    public boolean canBeCalibrated(){
+        return this != ModItems.WOODEN_RECALL_STAFF;
     }
 
     public static boolean isCalibrated(ItemStack stack){
