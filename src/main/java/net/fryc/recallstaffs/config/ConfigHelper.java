@@ -2,6 +2,7 @@ package net.fryc.recallstaffs.config;
 
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.items.ModItems;
+import net.fryc.recallstaffs.items.custom.StaffItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -23,6 +24,7 @@ public class ConfigHelper {
     public static int diamondRecallCost = RecallStaffs.config.diamondRecallCost;
     public static int netheriteRecallCost = RecallStaffs.config.netheriteRecallCost;
 
+    public static int calibratedStaffAdditionalCost = RecallStaffs.config.calibratedStaffAdditionalCost;
 
     public static int recallStaffCraftCost = RecallStaffs.config.recallStaffCraftCost;
 
@@ -31,53 +33,53 @@ public class ConfigHelper {
      *  B - recall cooldown
      */
     public static Pair<Integer, Integer> getRecallStaffCostAndCooldown(ItemStack staff, @Nullable World world){
-        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(woodenRecallCost, woodenRecallStaffCooldown);
-                }
+        if(world != null){
+            if(world.isClient()){
+                return getClientRecallStaffCostAndCooldown(staff);
             }
-            return new Pair<>(RecallStaffs.config.woodenRecallCost, RecallStaffs.config.woodenRecallStaffCooldown);
+        }
+
+        int cost = StaffItem.isCalibrated(staff) ? RecallStaffs.config.calibratedStaffAdditionalCost : 0;
+        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
+            return new Pair<>(RecallStaffs.config.woodenRecallCost + cost, RecallStaffs.config.woodenRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.COPPER_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(copperRecallCost, copperRecallStaffCooldown);
-                }
-            }
-            return new Pair<>(RecallStaffs.config.copperRecallCost, RecallStaffs.config.copperRecallStaffCooldown);
+            return new Pair<>(RecallStaffs.config.copperRecallCost + cost, RecallStaffs.config.copperRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.IRON_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(ironRecallCost, ironRecallStaffCooldown);
-                }
-            }
-            return new Pair<>(RecallStaffs.config.ironRecallCost, RecallStaffs.config.ironRecallStaffCooldown);
+            return new Pair<>(RecallStaffs.config.ironRecallCost + cost, RecallStaffs.config.ironRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.GOLDEN_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(goldenRecallCost, goldenRecallStaffCooldown);
-                }
-            }
-            return new Pair<>(RecallStaffs.config.goldenRecallCost, RecallStaffs.config.goldenRecallStaffCooldown);
+            return new Pair<>(RecallStaffs.config.goldenRecallCost + cost, RecallStaffs.config.goldenRecallStaffCooldown);
         }
         else if(staff.isOf(ModItems.DIAMOND_RECALL_STAFF)){
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(diamondRecallCost, diamondRecallStaffCooldown);
-                }
-            }
-            return new Pair<>(RecallStaffs.config.diamondRecallCost, RecallStaffs.config.diamondRecallStaffCooldown);
+            return new Pair<>(RecallStaffs.config.diamondRecallCost + cost, RecallStaffs.config.diamondRecallStaffCooldown);
         }
         else {
-            if(world != null){
-                if(world.isClient()){
-                    return new Pair<>(netheriteRecallCost, netheriteRecallStaffCooldown);
-                }
-            }
-            return new Pair<>(RecallStaffs.config.netheriteRecallCost, RecallStaffs.config.netheriteRecallStaffCooldown);
+            return new Pair<>(RecallStaffs.config.netheriteRecallCost + cost, RecallStaffs.config.netheriteRecallStaffCooldown);
+        }
+    }
+
+    public static Pair<Integer, Integer> getClientRecallStaffCostAndCooldown(ItemStack staff){
+        int cost = StaffItem.isCalibrated(staff) ? calibratedStaffAdditionalCost : 0;
+
+        if(staff.isOf(ModItems.WOODEN_RECALL_STAFF)){
+            return new Pair<>(woodenRecallCost + cost, woodenRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.COPPER_RECALL_STAFF)){
+            return new Pair<>(copperRecallCost + cost, copperRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.IRON_RECALL_STAFF)){
+            return new Pair<>(ironRecallCost + cost, ironRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.GOLDEN_RECALL_STAFF)){
+            return new Pair<>(goldenRecallCost + cost, goldenRecallStaffCooldown);
+        }
+        else if(staff.isOf(ModItems.DIAMOND_RECALL_STAFF)){
+            return new Pair<>(diamondRecallCost + cost, diamondRecallStaffCooldown);
+        }
+        else {
+            return new Pair<>(netheriteRecallCost + cost, netheriteRecallStaffCooldown);
         }
     }
 }
