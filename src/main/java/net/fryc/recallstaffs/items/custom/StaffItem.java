@@ -21,6 +21,8 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -46,6 +48,9 @@ public class StaffItem extends Item {
             tooltip.add(Text.literal(Text.translatable("text.recallstaffs.usage_cost").getString() + ": " + pair.getA() + " " + Text.translatable("text.recallstaffs.levels").getString()).formatted(Formatting.BLUE));
             tooltip.add(Text.literal(Text.translatable("text.recallstaffs.cooldown").getString() + ": " + pair.getB() + Text.translatable("text.recallstaffs.seconds").getString()).formatted(Formatting.GRAY));
         }
+        if(isCalibrated(stack)){
+            tooltip.add(Text.translatable("text.recallstaffs.revert_calibration"));
+        }
         super.appendTooltip(stack, context, tooltip, type);
     }
 
@@ -57,19 +62,31 @@ public class StaffItem extends Item {
         return 140;
     }
 
+    public Text getName(ItemStack stack) {
+        String calibrated = isCalibrated(stack) ? "_calibrated" : "";
+        return Text.translatable(this.getTranslationKey(stack) + calibrated);
+    }
+
     public ActionResult useOnBlock(ItemUsageContext context){
-        if(isCalibrated(context.getStack())){
-            return ActionResult.PASS;
-        }
-
         if(!context.getWorld().isClient()){
-            if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
-                context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
-                        Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
-                        true
-                ));
+            if(this.canBeCalibrated()){
+                if(isCalibrated(context.getStack())){
+                    if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.GRINDSTONE)){
+                        context.getStack().remove(DataComponentTypes.LODESTONE_TRACKER);
+                        context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS);
 
-                return ActionResult.success(true);
+                        return ActionResult.success(true);
+                    }
+                }
+                else if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
+                    context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
+                            Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
+                            true
+                    ));
+                    context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ITEM_LODESTONE_COMPASS_LOCK, SoundCategory.BLOCKS);
+
+                    return ActionResult.success(true);
+                }
             }
         }
 
@@ -169,6 +186,10 @@ public class StaffItem extends Item {
         }
 
         return itemStack;
+    }
+
+    public boolean canBeCalibrated(){
+        return this != ModItems.WOODEN_RECALL_STAFF;
     }
 
     public static boolean isCalibrated(ItemStack stack){

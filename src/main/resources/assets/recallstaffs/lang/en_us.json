@@ -10,6 +10,12 @@
   "item.recallstaffs.diamond_recall_staff": "Diamond Recall Staff",
   "item.recallstaffs.netherite_recall_staff": "Netherite Recall Staff",
 
+  "item.recallstaffs.copper_recall_staff_calibrated": "Calibrated Copper Recall Staff",
+  "item.recallstaffs.iron_recall_staff_calibrated": "Calibrated Iron Recall Staff",
+  "item.recallstaffs.golden_recall_staff_calibrated": "Calibrated Golden Recall Staff",
+  "item.recallstaffs.diamond_recall_staff_calibrated": "Calibrated Diamond Recall Staff",
+  "item.recallstaffs.netherite_recall_staff_calibrated": "Calibrated Netherite Recall Staff",
+
   "block.recallstaffs.recovery_altar": "Recovery Altar",
 
   "effect.recallstaffs.invulnerability": "Call of Being",
@@ -21,6 +27,7 @@
   "text.recallstaffs.time_before_next_recall": "Time before next recall",
   "text.recallstaffs.too_low_level": "Your level is too low to recall!",
   "text.recallstaffs.calibrated_teleport_error": "Something prevents you from teleporting",
+  "text.recallstaffs.revert_calibration": "Use on grindstone to revert calibration",
 
   "text.autoconfig.recallstaffs.title": "Recall Staffs Config",
   "text.autoconfig.recallstaffs.category.other": "Other",

@@ -10,6 +10,12 @@
   "item.recallstaffs.diamond_recall_staff": "Diamentowy Kostur Powrotu",
   "item.recallstaffs.netherite_recall_staff": "Netherytowy Kostur Powrotu",
 
+  "item.recallstaffs.copper_recall_staff_calibrated": "Skalibrowany Miedziany Kostur Powrotu",
+  "item.recallstaffs.iron_recall_staff_calibrated": "Skalibrowany Żelazny Kostur Powrotu",
+  "item.recallstaffs.golden_recall_staff_calibrated": "Skalibrowany Złoty Kostur Powrotu",
+  "item.recallstaffs.diamond_recall_staff_calibrated": "Skalibrowany Diamentowy Kostur Powrotu",
+  "item.recallstaffs.netherite_recall_staff_calibrated": "Skalibrowany Netherytowy Kostur Powrotu",
+
   "block.recallstaffs.recovery_altar": "Ołtarz Powrotny",
 
   "effect.recallstaffs.invulnerability": "Nietykalność",
@@ -27,6 +33,7 @@
   "text.recallstaffs.time_before_next_recall": "Czas przed następnym powrotem",
   "text.recallstaffs.too_low_level": "Twój poziom jest zbyt niski by użyć powrotu",
   "text.recallstaffs.calibrated_teleport_error": "Coś ci przeszkadza w teleportacji",
+  "text.recallstaffs.revert_calibration": "Użyj na kamieniu szlifierskim aby odwrócić kalibrację",
 
   "text.recallstaffs.higher_level_required": "Wymagany wyższy poziom doświadczenia",
   "text.recallstaffs.consumes_level": "Stworzenie tego przedmiotu obniży twój poziom doświadczenia",
