@@ -20,6 +20,7 @@
   "text.recallstaffs.seconds": "s",
   "text.recallstaffs.time_before_next_recall": "Time before next recall",
   "text.recallstaffs.too_low_level": "Your level is too low to recall!",
+  "text.recallstaffs.calibrated_teleport_error": "Something prevents you from teleporting",
 
   "text.autoconfig.recallstaffs.title": "Recall Staffs Config",
   "text.autoconfig.recallstaffs.category.other": "Other",
