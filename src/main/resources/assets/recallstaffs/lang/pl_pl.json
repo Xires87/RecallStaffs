@@ -1,10 +1,14 @@
 {
-  "item.recallstaffs.wooden_recall_staff": "Drewniana Różdżka Powrotu",
-  "item.recallstaffs.copper_recall_staff": "Miedziana Różdżka Powrotu",
-  "item.recallstaffs.iron_recall_staff": "Żelazna Różdżka Powrotu",
-  "item.recallstaffs.golden_recall_staff": "Złota Różdżka Powrotu",
-  "item.recallstaffs.diamond_recall_staff": "Diamentowa Różdżka Powrotu",
-  "item.recallstaffs.netherite_recall_staff": "Netherytowa Różdżka Powrotu",
+  "tag.item.recallstaffs.recall_staffs": "Kostury Powrotu",
+  "tag.item.recallstaffs.recall_staffs_require_level": "Kostury powrotu wymagające określonego poziomu do stworzenia",
+  "tag.item.recallstaffs.recovery_altar_charge_item": "Przedmioty, które można wykorzystać aby zasilić Ołtarz Powrotny",
+
+  "item.recallstaffs.wooden_recall_staff": "Drewniany Kostur Powrotu",
+  "item.recallstaffs.copper_recall_staff": "Miedziany Kostur Powrotu",
+  "item.recallstaffs.iron_recall_staff": "Żelazny Kostur Powrotu",
+  "item.recallstaffs.golden_recall_staff": "Złoty Kostur Powrotu",
+  "item.recallstaffs.diamond_recall_staff": "Diamentowy Kostur Powrotu",
+  "item.recallstaffs.netherite_recall_staff": "Netherytowy Kostur Powrotu",
 
   "block.recallstaffs.recovery_altar": "Ołtarz Powrotny",
 
@@ -19,32 +23,32 @@
   "text.recallstaffs.higher_level_required": "Wymagany wyższy poziom doświadczenia",
   "text.recallstaffs.consumes_level": "Stworzenie tego przedmiotu obniży twój poziom doświadczenia",
 
-  "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia różdżki powrotu [Wymagany Restart]",
-  "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe różdżki nie wymagają poziomu gracza aby je wytworzyć)",
+  "text.autoconfig.recallstaffs.option.recallStaffCraftCost": "Poziom gracza potrzebny do wytworzenia kostura powrotu [Wymagany Restart]",
+  "text.autoconfig.recallstaffs.option.recallStaffCraftCost.@Tooltip": "(Drewniane i netherytowe kostury nie wymagają poziomu gracza aby je wytworzyć)",
 
-  "text.autoconfig.recallstaffs.option.resetStaffCooldownAfterDeath": "Zresetuj czas odnowienia różdżek powrotu po śmierci [Wymagany Restart]",
+  "text.autoconfig.recallstaffs.option.resetStaffCooldownAfterDeath": "Zresetuj czas odnowienia kosturów powrotu po śmierci [Wymagany Restart]",
 
-  "text.autoconfig.recallstaffs.option.recallingSummonsLightningBolt": "Użycie różdżki powrotu przywołuje piorun",
+  "text.autoconfig.recallstaffs.option.recallingSummonsLightningBolt": "Użycie kostura powrotu przywołuje piorun",
 
-  "text.autoconfig.recallstaffs.option.enableTooltipsForRecallStaffs": "Włącz podpisy dla różdżek powrotu (koszt użycia i czas odnowienia)",
+  "text.autoconfig.recallstaffs.option.enableTooltipsForRecallStaffs": "Włącz podpisy dla kosturów powrotu (koszt użycia i czas odnowienia)",
 
-  "text.autoconfig.recallstaffs.option.woodenRecallStaffCooldown": "Czas odnowienia drewnianej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.copperRecallStaffCooldown": "Czas odnowienia miedzianej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.ironRecallStaffCooldown": "Czas odnowienia żelaznej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.goldenRecallStaffCooldown": "Czas odnowienia złotej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.diamondRecallStaffCooldown": "Czas odnowienia diamentowej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.netheriteRecallStaffCooldown": "Czas odnowienia netherytowej różdżki powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.woodenRecallStaffCooldown": "Czas odnowienia drewnianego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.copperRecallStaffCooldown": "Czas odnowienia miedzianego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.ironRecallStaffCooldown": "Czas odnowienia żelaznego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.goldenRecallStaffCooldown": "Czas odnowienia złotego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.diamondRecallStaffCooldown": "Czas odnowienia diamentowego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.netheriteRecallStaffCooldown": "Czas odnowienia netherytowego kostura powrotu (sekundy) [Opuść świat aby zaktualizować podpisy (tooltip)]",
 
 
   "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeRecall": "Sprawdź poziom gracza przed powrotem",
-  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeRecall.@Tooltip": "Kiedy włączone, gracze nie będą mogli użyć różdżki powrotu mając poziom niższy niż koszt użycia różdżki",
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeRecall.@Tooltip": "Kiedy włączone, gracze nie będą mogli użyć kostura powrotu mając poziom niższy niż koszt użycia kostura",
 
-  "text.autoconfig.recallstaffs.option.woodenRecallCost": "Koszt użycia drewnianej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.copperRecallCost": "Koszt użycia miedzianej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.ironRecallCost": "Koszt użycia żelaznej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.goldenRecallCost": "Koszt użycia złotej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.diamondRecallCost": "Koszt użycia diamentowej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
-  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Koszt użycia netherytowej różdżki (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.woodenRecallCost": "Koszt użycia drewnianego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.copperRecallCost": "Koszt użycia miedzianego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.ironRecallCost": "Koszt użycia żelaznego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.goldenRecallCost": "Koszt użycia złotego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.diamondRecallCost": "Koszt użycia diamentowego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
+  "text.autoconfig.recallstaffs.option.netheriteRecallCost": "Koszt użycia netherytowego kostura (poziom gracza) [Opuść świat aby zaktualizować podpisy (tooltip)]",
 
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar": "Czas trwania nietykalności po użyciu ołtarza powrotnego",
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. Jeśli ta wartość jest niższa niż 40, gracz nie otrzyma nietykalności i nie przeteleportuje się z powrotem do ołtarza powrotnego",
