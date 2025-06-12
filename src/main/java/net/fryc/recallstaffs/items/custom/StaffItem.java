@@ -228,6 +228,8 @@ public class StaffItem extends Item {
         }
         ((ServerPlayerGetters) player).setRecallStaffCooldown(recallCooldown * 20);
 
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, setNauseaTime(), 0));
+
         player.setInvulnerable(false);
     }
 
@@ -251,13 +253,13 @@ public class StaffItem extends Item {
         return playerLevel;
     }
 
-    private static int setNauseaTime(Item item){
-        int time = 600;
-        if(item.getDefaultStack().isOf(ModItems.COPPER_RECALL_STAFF)) time -= 200;
-        else if(item.getDefaultStack().isOf(ModItems.IRON_RECALL_STAFF)) time -= 300;
-        else if(item.getDefaultStack().isOf(ModItems.GOLDEN_RECALL_STAFF)) time -= 400;
-        else if(item.getDefaultStack().isOf(ModItems.DIAMOND_RECALL_STAFF)) time -= 500;
-        else if(item.getDefaultStack().isOf(ModItems.NETHERITE_RECALL_STAFF)) time = 0;
+    private int setNauseaTime(){
+        int time = 500;
+        if(this == ModItems.COPPER_RECALL_STAFF) time -= 250;
+        else if(this == ModItems.IRON_RECALL_STAFF) time -= 300;
+        else if(this == ModItems.GOLDEN_RECALL_STAFF) time -= 350;
+        else if(this == ModItems.DIAMOND_RECALL_STAFF) time -= 400;
+        else if(this == ModItems.NETHERITE_RECALL_STAFF) time -= 450;
         return time;
     }
 
