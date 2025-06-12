@@ -35,7 +35,8 @@ abstract class ServerWorldMixin {
                 RecallStaffs.config.netheriteRecallCost
         ));
         ServerPlayNetworking.send(player, new ThirdAnswerConfigPayload(
-                RecallStaffs.config.recallStaffCraftCost
+                RecallStaffs.config.recallStaffCraftCost,
+                RecallStaffs.config.calibratedStaffAdditionalCost
         ));
     }
 }
