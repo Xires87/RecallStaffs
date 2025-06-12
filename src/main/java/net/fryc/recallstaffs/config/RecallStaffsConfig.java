@@ -48,6 +48,12 @@ public class RecallStaffsConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     @Comment("When true, players won't be able to recall with level lower than staff's usage cost")
     public boolean checkPlayersLevelBeforeRecall = false;
+
+    @ConfigEntry.Category("recallcost")
+    @ConfigEntry.Gui.Tooltip
+    @Comment("When true, players won't be able to recall with level lower than calibrated staff's usage cost")
+    public boolean checkPlayersLevelBeforeCalibratedRecall = true;
+
     @ConfigEntry.Category("recallcost")
     public int woodenRecallCost = 10;
 
@@ -68,6 +74,9 @@ public class RecallStaffsConfig implements ConfigData {
 
     @ConfigEntry.Category("recallcost")
     public int recallingWithHorseAdditionalCost = 1;
+
+    @ConfigEntry.Category("recallcost")
+    public int calibratedStaffAdditionalCost = 12;
 
     @ConfigEntry.Category("recoveryaltar")
     @ConfigEntry.Gui.Tooltip

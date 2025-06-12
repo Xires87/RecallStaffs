@@ -17,11 +17,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -29,8 +27,10 @@ import org.jetbrains.annotations.Nullable;
 import oshi.util.tuples.Pair;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StaffItem extends Item {
+
     public StaffItem(Settings settings) {
         super(settings);
     }
@@ -52,20 +52,46 @@ public class StaffItem extends Item {
         return 140;
     }
 
+    public ActionResult useOnBlock(ItemUsageContext context){
+        if(isCalibrated(context.getStack())){
+            return ActionResult.PASS;
+        }
+
+        if(!context.getWorld().isClient()){
+            if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
+                context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
+                        Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
+                        true
+                ));
+
+                return ActionResult.success(true);
+            }
+        }
+
+        return ActionResult.PASS;
+    }
+
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(user instanceof ServerPlayerEntity splayer){
             int cooldown = ((ServerPlayerGetters) splayer).getRecallStaffCooldown();
             if(cooldown < 1){
                 user.setCurrentHand(hand);
+                /*
                 int time = setNauseaTime(this);
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200 + time, 0));
+                 */
                 return TypedActionResult.pass(itemStack);
             }
             else{
                 cooldown /= 20;
-                splayer.sendMessage(Text.literal("Time before next recall: " + cooldown + "s"), true);
-                splayer.getItemCooldownManager().set(this, 20);
+                this.cancelTeleportation(Text.literal(
+                        Text.translatable("text.recallstaffs.time_before_next_recall").getString() +
+                                ": " +
+                                cooldown +
+                                Text.translatable("text.recallstaffs.seconds").getString()
+                ), splayer, itemStack);
+
                 return TypedActionResult.fail(itemStack);
             }
         }
@@ -73,6 +99,7 @@ public class StaffItem extends Item {
     }
 
 
+    /*
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if(remainingUseTicks > 0 && user.hasStatusEffect(StatusEffects.NAUSEA)){
             if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 800){
@@ -81,14 +108,11 @@ public class StaffItem extends Item {
         }
     }
 
+     */
+
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         ItemStack itemStack = super.finishUsing(stack, world, user);
         if (!world.isClient()) {
-
-            int d = (int) user.getX();
-            int e = (int) user.getY();
-            int f = (int) user.getZ();
-
             AbstractHorseEntity horse = null;
             int additionalCost = 0;
             if (user.hasVehicle()) {
@@ -100,44 +124,98 @@ public class StaffItem extends Item {
             }
 
             if (user instanceof ServerPlayerEntity player) {
-                Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
-                int recallCost = pair.getA();
-                int recallCooldown = pair.getB();
-                if(!(player.experienceLevel < recallCost && RecallStaffs.config.checkPlayersLevelBeforeRecall)){
-                    player.setInvulnerable(true);
+                if(player.getServer() != null){
+                    Pair<Integer, Integer> pair = ConfigHelper.getRecallStaffCostAndCooldown(stack, world);
+                    int recallCost = pair.getA();
+                    int recallCooldown = pair.getB();
+                    boolean shouldCheckLevel = isCalibrated(stack) ? RecallStaffs.config.checkPlayersLevelBeforeCalibratedRecall : RecallStaffs.config.checkPlayersLevelBeforeRecall;
+                    if(!(player.experienceLevel < recallCost && shouldCheckLevel)){
+                        BlockPos spawnPos = null;
+                        RegistryKey<World> dimension = null;
+                        if(isCalibrated(stack)){
+                            Optional<GlobalPos> optional = stack.get(DataComponentTypes.LODESTONE_TRACKER).target();
+                            if(optional.isPresent()){
+                                spawnPos = optional.get().pos();
+                                dimension = optional.get().dimension();
+                            }
+                            if(spawnPos == null || !isLodeStone(player.getServer().getWorld(dimension), spawnPos)) {
+                                this.cancelTeleportation(Text.translatable("text.recallstaffs.calibrated_teleport_error").formatted(Formatting.RED), player, stack);
 
-                    Vec3d vec3d = user.getPos();
-                    BlockPos spawnPos = ((ServerPlayerGetters) player).getServerPlayerSpawnPosition();
-                    if(spawnPos == null) spawnPos = player.getWorld().getSpawnPos();
-                    if(player.getServer() != null){
-                        if(horse != null){
-                            horse.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), null, horse.getYaw(), horse.getPitch());
+                                return itemStack;
+                            }
                         }
-                        player.teleport(player.getServer().getWorld(player.getSpawnPointDimension()), spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), player.getYaw(), player.getPitch());
-                        world.emitGameEvent(GameEvent.TELEPORT, vec3d, GameEvent.Emitter.of(user));
+
+                        if(spawnPos == null) {
+                            spawnPos = ((ServerPlayerGetters) player).getServerPlayerSpawnPosition() == null ?
+                                    player.getWorld().getSpawnPos() : ((ServerPlayerGetters) player).getServerPlayerSpawnPosition();
+                            dimension = player.getSpawnPointDimension();
+                        }
+
+                        this.teleport(
+                                world, player, player.getServer().getWorld(dimension),
+                                spawnPos, stack, recallCost, recallCooldown, horse, additionalCost
+                        );
                     }
-
-                    player.getItemCooldownManager().set(stack.getItem(), 100);
-                    player.setExperienceLevel(changePlayerLevel(player.experienceLevel, recallCost, additionalCost));
-
-                    if(RecallStaffs.config.recallingSummonsLightningBolt) EntityType.LIGHTNING_BOLT.spawn((ServerWorld) world, new BlockPos(d,e,f), SpawnReason.TRIGGERED);
-                    ((ServerPlayerGetters) player).setRecallStaffCooldown(recallCooldown * 20);
-
-                    player.setInvulnerable(false);
-                }
-                else{
-                    player.getItemCooldownManager().set(stack.getItem(), 40);
-                    player.sendMessage(Text.literal("Your level is too low to recall!").formatted(Formatting.RED), true);
-                    if(user.hasStatusEffect(StatusEffects.NAUSEA)){
-                        if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 700){
-                            user.removeStatusEffect(StatusEffects.NAUSEA);
-                        }
+                    else {
+                        this.cancelTeleportation(Text.translatable("text.recallstaffs.too_low_level").formatted(Formatting.RED), player, stack);
                     }
                 }
             }
         }
 
         return itemStack;
+    }
+
+    public static boolean isCalibrated(ItemStack stack){
+        return stack.contains(DataComponentTypes.LODESTONE_TRACKER);
+    }
+
+    public boolean hasGlint(ItemStack stack){
+        return isCalibrated(stack) || super.hasGlint(stack);
+    }
+
+    private void teleport(
+            World currentWorld, ServerPlayerEntity player, ServerWorld destinationWorld,
+            BlockPos destinationPos, ItemStack usedItem, int recallCost,
+            int recallCooldown, @Nullable AbstractHorseEntity horse, int additionalCost
+    ){
+        player.setInvulnerable(true);
+
+        int prevX = (int) player.getX();
+        int prevY = (int) player.getY();
+        int prevZ = (int) player.getZ();
+        Vec3d previousPos = player.getPos();
+
+        int destY = isCalibrated(usedItem) ? destinationPos.getY() + 1 : destinationPos.getY();
+
+        if(horse != null){
+            horse.teleport(destinationWorld, destinationPos.getX(), destY, destinationPos.getZ(), null, horse.getYaw(), horse.getPitch());
+        }
+        player.teleport(destinationWorld, destinationPos.getX(), destY, destinationPos.getZ(), player.getYaw(), player.getPitch());
+        currentWorld.emitGameEvent(GameEvent.TELEPORT, previousPos, GameEvent.Emitter.of(player));
+
+        player.getItemCooldownManager().set(usedItem.getItem(), 100);
+        player.setExperienceLevel(changePlayerLevel(player.experienceLevel, recallCost, additionalCost));
+
+        if(RecallStaffs.config.recallingSummonsLightningBolt){
+            EntityType.LIGHTNING_BOLT.spawn((ServerWorld) currentWorld, new BlockPos(prevX, prevY, prevZ), SpawnReason.TRIGGERED);
+        }
+        ((ServerPlayerGetters) player).setRecallStaffCooldown(recallCooldown * 20);
+
+        player.setInvulnerable(false);
+    }
+
+    private void cancelTeleportation(Text message, ServerPlayerEntity player, ItemStack stack){
+        player.getItemCooldownManager().set(stack.getItem(), 40);
+        player.sendMessage(message, true);
+    }
+
+    private static boolean isLodeStone(ServerWorld world, BlockPos pos){
+        if(world == null){
+            return false;
+        }
+
+        return world.getBlockState(pos).getBlock().equals(Blocks.LODESTONE);
     }
 
     private static int changePlayerLevel(int playerLevel, int cost, int additionalCost){
