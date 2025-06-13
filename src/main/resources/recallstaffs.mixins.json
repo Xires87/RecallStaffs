@@ -9,7 +9,9 @@
     "ServerWorldMixin"
   ],
   "client": [
-    "ClientPlayerInteractionManagerMixin"
+    "client/ClientPlayerInteractionManagerMixin",
+    "client/GameRendererMixin",
+    "client/ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
