@@ -73,5 +73,10 @@
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. If this value is lower than 40, player won't get Call of Being and won't teleport back to recovery altar",
   "text.autoconfig.recallstaffs.option.recoveryAltarChargingLevelCost": "Number of levels required for last charges (without using Echo Shards)",
   "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount": "Level charges count",
-  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "When set to 0, recovery altar will be charged only with echo shards; when set to 6 - only with player levels"
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "When set to 0, recovery altar will be charged only with echo shards; when set to 6 - only with player levels",
+
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeCalibratedRecall": "Check player's level before recalling with calibrated staff",
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeCalibratedRecall.@Tooltip": "When turned on, players won't be able to recall with level lower than calibrated staff's usage cost",
+
+  "text.autoconfig.recallstaffs.option.calibratedStaffAdditionalCost": "Additional cost when using calibrated staff (levels)"
 }
