@@ -72,5 +72,10 @@
   "text.autoconfig.recallstaffs.option.invulnerabilityTimeAfterUsingRecoveryAltar.@Tooltip": "20 = 1s. Jeśli ta wartość jest niższa niż 40, gracz nie otrzyma nietykalności i nie przeteleportuje się z powrotem do ołtarza powrotnego",
   "text.autoconfig.recallstaffs.option.recoveryAltarChargingLevelCost": "Liczba poziomów wymagana na ostatnie ładunki (bez używania odłamków echa)",
   "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount": "Liczba ładunków zasilanych poziomami gracza",
-  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "Kiedy ustawione na 0, ołtarz powrotny będzie zasilany tylko odłamkami echa; kiedy ustawione na 6 - tylko poziomami gracza"
+  "text.autoconfig.recallstaffs.option.recoveryAltarLevelChargesCount.@Tooltip": "Kiedy ustawione na 0, ołtarz powrotny będzie zasilany tylko odłamkami echa; kiedy ustawione na 6 - tylko poziomami gracza",
+
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeCalibratedRecall": "Sprawdź poziom gracza przed powrotem przy użyciu skalibrowanego kostura",
+  "text.autoconfig.recallstaffs.option.checkPlayersLevelBeforeCalibratedRecall.@Tooltip": "Kiedy włączone, gracze nie będą mogli użyć skalibrowanego kostura powrotu mając poziom niższy niż koszt użycia",
+
+  "text.autoconfig.recallstaffs.option.calibratedStaffAdditionalCost": "Dodatkowy koszt podczas używania skalibrowanego kostura (poziomy gracza)"
 }
