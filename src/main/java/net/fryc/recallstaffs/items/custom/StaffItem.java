@@ -2,6 +2,7 @@ package net.fryc.recallstaffs.items.custom;
 
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.items.ModItems;
+import net.fryc.recallstaffs.tags.ModBlockTags;
 import net.fryc.recallstaffs.util.ConfigHelper;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
 import net.minecraft.block.Blocks;
@@ -71,14 +72,14 @@ public class StaffItem extends Item {
         if(!context.getWorld().isClient()){
             if(this.canBeCalibrated()){
                 if(isCalibrated(context.getStack())){
-                    if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.GRINDSTONE)){
+                    if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.REVERTS_RECALL_STAFF_CALIBRATION)){
                         context.getStack().remove(DataComponentTypes.LODESTONE_TRACKER);
                         context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS);
 
                         return ActionResult.success(true);
                     }
                 }
-                else if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
+                else if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.CALIBRATES_RECALL_STAFF)){
                     context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
                             Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
                             true
@@ -243,7 +244,7 @@ public class StaffItem extends Item {
             return false;
         }
 
-        return world.getBlockState(pos).getBlock().equals(Blocks.LODESTONE);
+        return world.getBlockState(pos).isIn(ModBlockTags.CALIBRATES_RECALL_STAFF);
     }
 
     private static int changePlayerLevel(int playerLevel, int cost, int additionalCost){
