@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 abstract class ClientPlayerEntityMixin {
 
     @WrapOperation(
-            method = "tickNausea(Z)V",
+            method = "updateNausea()V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(FFF)F")
     )
     private static float tickNauseaWhenUsingStaff(float first, float second, float third, Operation<Float> original) {

@@ -20,8 +20,8 @@ abstract class GameRendererMixin implements AutoCloseable {
 
 
     @ModifyExpressionValue(
-            method = "render(Lnet/minecraft/client/render/RenderTickCounter;Z)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z")
+            method = "render(FJZ)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z")
     )
     private boolean renderNauseaEffectWhenUsingStaff(boolean original) {
         // the place I'm injecting into is under 'this.client.player != null' check
@@ -29,8 +29,8 @@ abstract class GameRendererMixin implements AutoCloseable {
     }
 
     @ModifyExpressionValue(
-            method = "renderWorld(Lnet/minecraft/client/render/RenderTickCounter;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/registry/entry/RegistryEntry;)Z")
+            method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z")
     )
     private boolean setNauseaStrengthWhenUsingStaff(boolean original) {
         if(this.client.player == null){

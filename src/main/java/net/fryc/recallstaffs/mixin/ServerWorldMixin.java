@@ -34,6 +34,8 @@ abstract class ServerWorldMixin {
 
         buf.writeInt(RecallStaffs.config.recallStaffCraftCost);
 
+        buf.writeInt(RecallStaffs.config.calibratedStaffAdditionalCost);
+
         ServerPlayNetworking.send(player, ModPackets.ANSWER_CONFIG_ID, buf); // <--- informs client about server's config to avoid visual bugs
     }
 }
