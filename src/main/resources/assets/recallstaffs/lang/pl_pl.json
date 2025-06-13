@@ -1,7 +1,10 @@
 {
   "tag.item.recallstaffs.recall_staffs": "Kostury Powrotu",
-  "tag.item.recallstaffs.recall_staffs_require_level": "Kostury powrotu wymagające określonego poziomu do stworzenia",
-  "tag.item.recallstaffs.recovery_altar_charge_item": "Przedmioty, które można wykorzystać aby zasilić Ołtarz Powrotny",
+  "tag.item.recallstaffs.recall_staffs_require_level": "Kostury wymagające określonego poziomu do stworzenia",
+  "tag.item.recallstaffs.recovery_altar_charge_item": "Zasila Ołtarz Powrotny",
+
+  "tag.block.recallstaffs.calibrates_recall_staff": "Kalibruje kostur powrotny",
+  "tag.block.recallstaffs.reverts_recall_staff_calibration": "Odwraca kalibrację kostura powrotnego",
 
   "item.recallstaffs.wooden_recall_staff": "Drewniany Kostur Powrotu",
   "item.recallstaffs.copper_recall_staff": "Miedziany Kostur Powrotu",
