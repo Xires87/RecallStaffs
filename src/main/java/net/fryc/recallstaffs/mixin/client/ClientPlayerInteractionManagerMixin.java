@@ -1,4 +1,4 @@
-package net.fryc.recallstaffs.mixin;
+package net.fryc.recallstaffs.mixin.client;
 
 import net.fryc.recallstaffs.effects.ModEffects;
 import net.minecraft.client.MinecraftClient;
