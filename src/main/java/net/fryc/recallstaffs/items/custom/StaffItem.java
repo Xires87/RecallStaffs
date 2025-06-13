@@ -3,8 +3,12 @@ package net.fryc.recallstaffs.items.custom;
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.config.ConfigHelper;
 import net.fryc.recallstaffs.items.ModItems;
+import net.fryc.recallstaffs.tags.ModBlockTags;
+import net.fryc.recallstaffs.util.ConfigHelper;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.LodestoneTrackerComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -14,6 +18,9 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -66,14 +73,14 @@ public class StaffItem extends Item {
         if(!context.getWorld().isClient()){
             if(this.canBeCalibrated()){
                 if(isCalibrated(context.getStack())){
-                    if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.GRINDSTONE)){
+                    if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.REVERTS_RECALL_STAFF_CALIBRATION)){
                         context.getStack().remove(DataComponentTypes.LODESTONE_TRACKER);
                         context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS);
 
                         return ActionResult.success(true);
                     }
                 }
-                else if(context.getWorld().getBlockState(context.getBlockPos()).getBlock().equals(Blocks.LODESTONE)){
+                else if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.CALIBRATES_RECALL_STAFF)){
                     context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
                             Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
                             true
@@ -238,7 +245,7 @@ public class StaffItem extends Item {
             return false;
         }
 
-        return world.getBlockState(pos).getBlock().equals(Blocks.LODESTONE);
+        return world.getBlockState(pos).isIn(ModBlockTags.CALIBRATES_RECALL_STAFF);
     }
 
     private static int changePlayerLevel(int playerLevel, int cost, int additionalCost){
