@@ -25,5 +25,7 @@ public class ConfigAnswerS2CPacket {
         ConfigHelper.netheriteRecallCost = buf.readInt();
 
         ConfigHelper.recallStaffCraftCost = buf.readInt();
+
+        ConfigHelper.calibratedStaffAdditionalCost = buf.readInt();
     }
 }

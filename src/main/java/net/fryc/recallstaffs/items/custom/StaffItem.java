@@ -1,14 +1,12 @@
 package net.fryc.recallstaffs.items.custom;
 
+import com.mojang.serialization.DataResult;
 import net.fryc.recallstaffs.RecallStaffs;
 import net.fryc.recallstaffs.config.ConfigHelper;
 import net.fryc.recallstaffs.items.ModItems;
 import net.fryc.recallstaffs.tags.ModBlockTags;
-import net.fryc.recallstaffs.util.ConfigHelper;
 import net.fryc.recallstaffs.util.ServerPlayerGetters;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LodestoneTrackerComponent;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -19,7 +17,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -28,7 +29,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -40,11 +40,14 @@ import java.util.Optional;
 
 public class StaffItem extends Item {
 
+    public static final String LODESTONE_POS_KEY = "LodestonePos";
+    public static final String LODESTONE_DIMENSION_KEY = "LodestoneDimension";
+
     public StaffItem(Settings settings) {
         super(settings);
     }
 
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         if(RecallStaffs.config.enableTooltipsForRecallStaffs){
             Pair<Integer, Integer> pair = ConfigHelper.getClientRecallStaffCostAndCooldown(stack);
             tooltip.add(Text.literal(Text.translatable("text.recallstaffs.usage_cost").getString() + ": " + pair.getA() + " " + Text.translatable("text.recallstaffs.levels").getString()).formatted(Formatting.BLUE));
@@ -53,7 +56,7 @@ public class StaffItem extends Item {
         if(isCalibrated(stack)){
             tooltip.add(Text.translatable("text.recallstaffs.revert_calibration"));
         }
-        super.appendTooltip(stack, context, tooltip, type);
+        super.appendTooltip(stack, world, tooltip, context);
     }
 
     public UseAction getUseAction(ItemStack stack) {
@@ -74,17 +77,16 @@ public class StaffItem extends Item {
             if(this.canBeCalibrated()){
                 if(isCalibrated(context.getStack())){
                     if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.REVERTS_RECALL_STAFF_CALIBRATION)){
-                        context.getStack().remove(DataComponentTypes.LODESTONE_TRACKER);
+                        context.getStack().removeSubNbt(LODESTONE_POS_KEY);
                         context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS);
 
                         return ActionResult.success(true);
                     }
                 }
                 else if(context.getWorld().getBlockState(context.getBlockPos()).isIn(ModBlockTags.CALIBRATES_RECALL_STAFF)){
-                    context.getStack().set(DataComponentTypes.LODESTONE_TRACKER, new LodestoneTrackerComponent(
-                            Optional.of(new GlobalPos(context.getWorld().getRegistryKey(), context.getBlockPos())),
-                            true
-                    ));
+                    context.getStack().getOrCreateNbt().put(LODESTONE_POS_KEY, NbtHelper.fromBlockPos(context.getBlockPos()));
+                    DataResult dataResult = World.CODEC.encodeStart(NbtOps.INSTANCE, context.getWorld().getRegistryKey());
+                    dataResult.result().ifPresent((nbtElement) -> context.getStack().getOrCreateNbt().put("LodestoneDimension", (NbtElement) nbtElement));
                     context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.ITEM_LODESTONE_COMPASS_LOCK, SoundCategory.BLOCKS);
 
                     return ActionResult.success(true);
@@ -101,10 +103,7 @@ public class StaffItem extends Item {
             int cooldown = ((ServerPlayerGetters) splayer).getRecallStaffCooldown();
             if(cooldown < 1){
                 user.setCurrentHand(hand);
-                /*
-                int time = setNauseaTime(this);
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200 + time, 0));
-                 */
+
                 return TypedActionResult.pass(itemStack);
             }
             else{
@@ -122,17 +121,6 @@ public class StaffItem extends Item {
         return TypedActionResult.fail(itemStack);
     }
 
-
-    /*
-    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if(remainingUseTicks > 0 && user.hasStatusEffect(StatusEffects.NAUSEA)){
-            if(user.getActiveStatusEffects().get(StatusEffects.NAUSEA).getDuration() < 800){
-                user.removeStatusEffect(StatusEffects.NAUSEA);
-            }
-        }
-    }
-
-     */
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         ItemStack itemStack = super.finishUsing(stack, world, user);
@@ -157,11 +145,13 @@ public class StaffItem extends Item {
                         BlockPos spawnPos = null;
                         RegistryKey<World> dimension = null;
                         if(isCalibrated(stack)){
-                            Optional<GlobalPos> optional = stack.get(DataComponentTypes.LODESTONE_TRACKER).target();
-                            if(optional.isPresent()){
-                                spawnPos = optional.get().pos();
-                                dimension = optional.get().dimension();
+                            NbtCompound pos = stack.getNbt().getCompound(LODESTONE_POS_KEY);
+                            Optional<RegistryKey<World>> optional = getLodestoneDimension(stack.getNbt());
+                            if(pos != null && optional.isPresent()){
+                                spawnPos = NbtHelper.toBlockPos(pos);
+                                dimension = optional.get();
                             }
+
                             if(spawnPos == null || !isLodeStone(player.getServer().getWorld(dimension), spawnPos)) {
                                 this.cancelTeleportation(Text.translatable("text.recallstaffs.calibrated_teleport_error").formatted(Formatting.RED), player, stack);
 
@@ -195,7 +185,7 @@ public class StaffItem extends Item {
     }
 
     public static boolean isCalibrated(ItemStack stack){
-        return stack.contains(DataComponentTypes.LODESTONE_TRACKER);
+        return stack.hasNbt() && stack.getNbt().contains(LODESTONE_POS_KEY);
     }
 
     public boolean hasGlint(ItemStack stack){
@@ -264,5 +254,10 @@ public class StaffItem extends Item {
         else if(this == ModItems.NETHERITE_RECALL_STAFF) time -= 450;
         return time;
     }
+
+    private static Optional<RegistryKey<World>> getLodestoneDimension(NbtCompound nbt) {
+        return World.CODEC.parse(NbtOps.INSTANCE, nbt.get(LODESTONE_DIMENSION_KEY)).result();
+    }
+
 
 }
